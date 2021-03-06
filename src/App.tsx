@@ -18,7 +18,7 @@ export type AppStateType = {
 const App: React.FC<AppStateType> = (props) => {
 
     return (
-        <BrowserRouter>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
             <div className="app_wrapper">
                 <Header/>
                 <Sidebar sidebar={props.state.sidebar}/>
