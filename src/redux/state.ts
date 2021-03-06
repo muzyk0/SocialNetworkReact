@@ -108,7 +108,7 @@ export const updateNewDialogMessage = (newText: string) => {
     rerenderEntireTree();
 }
 
-export const subscribe = (observer: () => void ) => {
+export const subscribe = (observer: () => void) => {
     rerenderEntireTree = observer
 }
 
