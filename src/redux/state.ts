@@ -101,15 +101,18 @@ let store = {
             id: new Date().getTime(),
             message: this._state.dialogsPage.newMessageText,
         }
-        this._state.dialogsPage.messages.push(newMessage)
-        this._state.dialogsPage.newMessageText = ''
-        this._callSubscribe();
+        const trimmedText = this._state.dialogsPage.newMessageText.trim()
+        if (trimmedText) {
+            this._state.dialogsPage.messages.push(newMessage)
+            this._state.dialogsPage.newMessageText = ''
+            this._callSubscribe();
+        }
     },
     updateNewDialogMessage(newText: string) {
         this._state.dialogsPage.newMessageText = newText;
         this._callSubscribe();
     },
-    subscribe (observer: () => void)  {
+    subscribe(observer: () => void) {
         this._callSubscribe = observer
     }
 }
