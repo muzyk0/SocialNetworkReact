@@ -36,12 +36,10 @@ const App: React.FC<PropsType> = (props) => {
                         dispatch={props.dispatch}
                     />}/>
 
-                    {/*<Route path='/dialogs' render={() => <Dialogs
-                        dialogPage={props.state.dialogsPage}
-                        newMessageText={props.state.dialogsPage.newMessageText}
-                        addMessage={props.store.addMessage}
-                        updateNewDialogMessage={props.store.updateNewDialogMessage}
-                    />}/>*/}
+                    <Route path='/dialogs' render={() => <Dialogs
+                        dialogPage={state.dialogsPage}
+                        dispatch={props.dispatch}
+                    />}/>
                 </div>
             </div>
         </HashRouter>

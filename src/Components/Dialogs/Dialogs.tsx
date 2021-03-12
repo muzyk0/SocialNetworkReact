@@ -2,13 +2,11 @@ import React, {ChangeEvent} from 'react';
 import s from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogsItem';
 import Message from './Messages/Message';
-import {DialogsPageType} from '../../redux/state';
+import {ActionsType, addMessageAC, DialogsPageType, updateNewMessageTextAC} from '../../redux/state';
 
 type PropsType = {
     dialogPage: DialogsPageType
-    newMessageText: string
-    addMessage: () => void
-    updateNewDialogMessage: (newText: string) => void
+    dispatch: (action: ActionsType) => void
 }
 
 function Dialogs(props: PropsType) {
@@ -21,10 +19,13 @@ function Dialogs(props: PropsType) {
 
 
     const addMessage = () => {
-        props.addMessage()
+        props.dispatch(addMessageAC())
     }
     const updateNewMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.updateNewDialogMessage(e.currentTarget.value)
+        // props.updateNewDialogMessage(e.currentTarget.value)
+
+        const messageText = e.currentTarget.value;
+        props.dispatch(updateNewMessageTextAC(messageText))
     }
     return (
         <div className={s.dialogs}>
@@ -34,7 +35,7 @@ function Dialogs(props: PropsType) {
             <div className={s.messages}>
                 {messagesElements}
                 <div>
-                    <textarea value={props.newMessageText} onChange={updateNewMessage}/>
+                    <textarea value={props.dialogPage.newMessageText} onChange={updateNewMessage}/>
                 </div>
                 <div>
 
