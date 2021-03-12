@@ -28,7 +28,6 @@ const App: React.FC<PropsType> = (props) => {
         <HashRouter>
             <div className="app_wrapper">
                 <Header/>
-                {/*<Sidebar sidebar={props.store._state.sidebar}/>*/}
                 <Sidebar sidebar={state.sidebar}/>
                 <div className={'app_wrapper_content'}>
                     <Route path='/profile' render={() => <Profile

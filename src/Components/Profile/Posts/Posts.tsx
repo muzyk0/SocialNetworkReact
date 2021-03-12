@@ -18,7 +18,6 @@ const Posts = (props: ProfilePostType) => {
               likesCount={post.likesCount}/>)
 
     const addPost = () => {
-        // props.dispatch({type: 'ADD-POST', postText: props.newPostText})
         props.dispatch(addPostActionCreator(props.newPostText))
     }
 
