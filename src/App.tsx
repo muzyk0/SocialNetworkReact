@@ -5,7 +5,7 @@ import Sidebar from './Components/Sidebar/Sidebar';
 import Profile from './Components/Profile/Profile';
 import {HashRouter, Route} from 'react-router-dom';
 import Dialogs from './Components/Dialogs/Dialogs';
-import {ActionsType, StoreType} from './redux/state';
+import {ActionsType, StoreType} from './redux/store';
 
 export type AppStateType = {
     store: StoreType

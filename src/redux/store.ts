@@ -1,3 +1,7 @@
+import {addPostActionCreator, profileReducer, updateNewPostTextAC} from './profileReducer';
+import {dialogsReducer, sendMessageAC, updateNewMessageBodyAC} from './dialogsReducer';
+import {sidebarReducer} from './sidebarReducer';
+
 export type MessageType = {
     id: number
     message: string
@@ -11,7 +15,7 @@ export type PostType = {
     message: string
     likesCount: number
 }
-export type ProfilePostType = {
+export type ProfilePageType = {
     newPostText: string
     posts: Array<PostType>
 }
@@ -24,16 +28,14 @@ export type FriendsType = {
     id: number
     name: string
 }
+
 export type SidebarType = {
-    sidebar: SidebarFriends
-}
-export type SidebarFriends = {
     friends: Array<FriendsType>
 }
 export type RootStateType = {
-    profilePage: ProfilePostType
+    profilePage: ProfilePageType
     dialogsPage: DialogsPageType
-    sidebar: SidebarFriends
+    sidebar: SidebarType
 }
 
 
@@ -45,32 +47,15 @@ export type StoreType = {
     dispatch: (action: ActionsType) => void
 }
 type AddPostActionType = ReturnType<typeof addPostActionCreator>
-type UpdateNewPostTextActionType = ReturnType<typeof updateNewPostTextActionCreator>
+type UpdateNewPostTextActionType = ReturnType<typeof updateNewPostTextAC>
 type AddMessageActionType = ReturnType<typeof sendMessageAC>
 type UpdateNewDialogMessageActionType = ReturnType<typeof updateNewMessageBodyAC>
 
-export type ActionsType =
-    AddPostActionType
+export type ActionsType = AddPostActionType
     | UpdateNewPostTextActionType
     | AddMessageActionType
     | UpdateNewDialogMessageActionType;
-const ADD_POST = 'ADD-POST'
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
-const SEND_MESSAGE = 'SEND-MESSAGE'
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_DIALOG_MESSAGE'
 
-export const addPostActionCreator = (postText: string) => {
-    return {type: ADD_POST, postText: postText} as const
-}
-export const updateNewPostTextActionCreator = (postText: string) => {
-    return {type: UPDATE_NEW_POST_TEXT, newText: postText} as const
-}
-export const sendMessageAC = () => {
-    return {type: SEND_MESSAGE} as const
-}
-export const updateNewMessageBodyAC = (messageText: string) => {
-    return {type: UPDATE_NEW_MESSAGE_BODY, newText: messageText} as const
-}
 
 let store: StoreType = {
     _state: {
@@ -150,38 +135,44 @@ let store: StoreType = {
         //     this._callSubscribe();
         // }
 
-        switch (action.type) {
-            case ADD_POST:
-                const newPost: PostType = {
-                    id: new Date().getTime(),
-                    message: action.postText,
-                    likesCount: 0
-                }
-                this._state.profilePage.posts.push(newPost)
-                this._state.profilePage.newPostText = '';
-                this._callSubscribe()
-                break
-            case UPDATE_NEW_POST_TEXT:
-                this._state.profilePage.newPostText = action.newText;
-                this._callSubscribe();
-                break
-            case SEND_MESSAGE:
-                const newMessage: MessageType = {
-                    id: new Date().getTime(),
-                    message: this._state.dialogsPage.newMessageBody,
-                }
-                const trimmedText = this._state.dialogsPage.newMessageBody.trim()
-                if (trimmedText) {
-                    this._state.dialogsPage.messages.push(newMessage)
-                    this._state.dialogsPage.newMessageBody = ''
-                    this._callSubscribe();
-                }
-                break
-            case UPDATE_NEW_MESSAGE_BODY:
-                this._state.dialogsPage.newMessageBody = action.newText;
-                this._callSubscribe();
-                break
-        }
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action)
+
+        this._callSubscribe();
+
+        // switch (action.type) {
+        //     case ADD_POST:
+        //         const newPost: PostType = {
+        //             id: new Date().getTime(),
+        //             message: action.postText,
+        //             likesCount: 0
+        //         }
+        //         this._state.profilePage.posts.push(newPost)
+        //         this._state.profilePage.newPostText = '';
+        //         this._callSubscribe()
+        //         break
+        //     case UPDATE_NEW_POST_TEXT:
+        //         this._state.profilePage.newPostText = action.newText;
+        //         this._callSubscribe();
+        //         break
+        //     case SEND_MESSAGE:
+        //         const newMessage: MessageType = {
+        //             id: new Date().getTime(),
+        //             message: this._state.dialogsPage.newMessageBody,
+        //         }
+        //         const trimmedText = this._state.dialogsPage.newMessageBody.trim()
+        //         if (trimmedText) {
+        //             this._state.dialogsPage.messages.push(newMessage)
+        //             this._state.dialogsPage.newMessageBody = ''
+        //             this._callSubscribe();
+        //         }
+        //         break
+        //     case UPDATE_NEW_MESSAGE_BODY:
+        //         this._state.dialogsPage.newMessageBody = action.newText;
+        //         this._callSubscribe();
+        //         break
+        // }
     }
 }
 
