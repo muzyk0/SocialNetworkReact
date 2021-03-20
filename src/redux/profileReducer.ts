@@ -1,6 +1,6 @@
-import {ActionsType, PostType, ProfilePageType} from './store';
+import {ActionsType, PostType, ProfilePostType} from './store';
 
-const initialState: ProfilePageType = {
+const initialState: ProfilePostType = {
     newPostText: '',
     posts: [
         {
@@ -17,7 +17,11 @@ const initialState: ProfilePageType = {
 }
 
 export const ADD_POST = 'ADD-POST'
+
 export const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
+
+export type AddPostActionType = ReturnType<typeof addPostActionCreator>
+export type UpdateNewPostTextActionType = ReturnType<typeof updateNewPostTextAC>
 
 export const addPostActionCreator = (postText: string) => {
     return {type: ADD_POST, postText: postText} as const
@@ -26,7 +30,7 @@ export const updateNewPostTextAC = (postText: string) => {
     return {type: UPDATE_NEW_POST_TEXT, newText: postText} as const
 }
 
-export const profileReducer = (state: ProfilePageType = initialState, action: ActionsType) => {
+export const profileReducer = (state = initialState, action: ActionsType): ProfilePostType => {
 
     switch (action.type) {
         case ADD_POST:

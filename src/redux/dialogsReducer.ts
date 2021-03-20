@@ -19,6 +19,9 @@ const initialState:DialogsPageType = {
 export const SEND_MESSAGE = 'SEND-MESSAGE'
 export const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_DIALOG_MESSAGE'
 
+export type AddMessageActionType = ReturnType<typeof sendMessageAC>
+export type UpdateNewDialogMessageActionType = ReturnType<typeof updateNewMessageBodyAC>
+
 export const sendMessageAC = () => {
     return {type: SEND_MESSAGE} as const
 }

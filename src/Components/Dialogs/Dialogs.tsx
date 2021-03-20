@@ -2,32 +2,34 @@ import React, {ChangeEvent} from 'react';
 import s from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogsItem';
 import Message from './Messages/Message';
-import {ActionsType, DialogsPageType} from '../../redux/store';
-import {sendMessageAC, updateNewMessageBodyAC} from '../../redux/dialogsReducer';
+import {DialogsPageType} from '../../redux/store';
 
 type PropsType = {
-    dialogPage: DialogsPageType
-    dispatch: (action: ActionsType) => void
+    updateNewMessageBody: (value: string) => void
+    onSendMessage: () => void
+    state: DialogsPageType
 }
 
 function Dialogs(props: PropsType) {
 
-    const dialogsElements = props.dialogPage.dialogs.map(dialogs => <DialogItem key={dialogs.id}
-                                                                                name={dialogs.name}
-                                                                                id={dialogs.id}/>)
+    const state = props.state
 
-    const messagesElements = props.dialogPage.messages.map(message => <Message key={message.id}
-                                                                               message={message.message}/>)
-    const newMessageBody = props.dialogPage.newMessageBody
+    const dialogsElements = state.dialogs.map(dialogs => <DialogItem key={dialogs.id}
+                                                                           name={dialogs.name}
+                                                                           id={dialogs.id}/>)
+
+    const messagesElements = state.messages.map(message => <Message key={message.id}
+                                                                          message={message.message}/>)
+    const newMessageBody = state.newMessageBody
 
 
-    const onSendMessage = () => {
-        props.dispatch(sendMessageAC())
+    const onSendMessageClick = () => {
+        props.onSendMessage()
     }
-    const updateNewMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
 
         const messageText = e.currentTarget.value;
-        props.dispatch(updateNewMessageBodyAC(messageText))
+        props.updateNewMessageBody(messageText)
     }
     return (
         <div className={s.dialogs}>
@@ -39,10 +41,10 @@ function Dialogs(props: PropsType) {
                 <div>
                     <textarea placeholder={'Enter your message'}
                               value={newMessageBody}
-                              onChange={updateNewMessage}/>
+                              onChange={onNewMessageChange}/>
                 </div>
                 <div>
-                    <button onClick={onSendMessage}>Send message</button>
+                    <button onClick={onSendMessageClick}>Send message</button>
                 </div>
             </div>
 

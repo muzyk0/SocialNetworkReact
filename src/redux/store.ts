@@ -1,5 +1,5 @@
-import {addPostActionCreator, profileReducer, updateNewPostTextAC} from './profileReducer';
-import {dialogsReducer, sendMessageAC, updateNewMessageBodyAC} from './dialogsReducer';
+import {AddPostActionType, profileReducer, UpdateNewPostTextActionType} from './profileReducer';
+import {AddMessageActionType, dialogsReducer, UpdateNewDialogMessageActionType} from './dialogsReducer';
 import {sidebarReducer} from './sidebarReducer';
 
 export type MessageType = {
@@ -15,7 +15,7 @@ export type PostType = {
     message: string
     likesCount: number
 }
-export type ProfilePageType = {
+export type ProfilePostType = {
     newPostText: string
     posts: Array<PostType>
 }
@@ -33,7 +33,7 @@ export type SidebarType = {
     friends: Array<FriendsType>
 }
 export type RootStateType = {
-    profilePage: ProfilePageType
+    profilePage: ProfilePostType
     dialogsPage: DialogsPageType
     sidebar: SidebarType
 }
@@ -46,10 +46,6 @@ export type StoreType = {
     subscribe: (observer: () => void) => void
     dispatch: (action: ActionsType) => void
 }
-type AddPostActionType = ReturnType<typeof addPostActionCreator>
-type UpdateNewPostTextActionType = ReturnType<typeof updateNewPostTextAC>
-type AddMessageActionType = ReturnType<typeof sendMessageAC>
-type UpdateNewDialogMessageActionType = ReturnType<typeof updateNewMessageBodyAC>
 
 export type ActionsType = AddPostActionType
     | UpdateNewPostTextActionType
@@ -107,33 +103,6 @@ let store: StoreType = {
         this._callSubscribe = observer
     },
     dispatch(action) {
-        // if (action.type === ADD_POST) {
-        //     const newPost: PostType = {
-        //         id: new Date().getTime(),
-        //         message: action.postText,
-        //         likesCount: 0
-        //     }
-        //     this._state.profilePage.posts.push(newPost)
-        //     this._state.profilePage.newPostText = '';
-        //     this._callSubscribe()
-        // } else if (action.type === UPDATE_NEW_POST_TEXT) {
-        //     this._state.profilePage.newPostText = action.newText;
-        //     this._callSubscribe();
-        // } else if (action.type === SEND_MESSAGE) {
-        //     const newMessage: MessageType = {
-        //         id: new Date().getTime(),
-        //         message: this._state.dialogsPage.newMessageBody,
-        //     }
-        //     const trimmedText = this._state.dialogsPage.newMessageBody.trim()
-        //     if (trimmedText) {
-        //         this._state.dialogsPage.messages.push(newMessage)
-        //         this._state.dialogsPage.newMessageBody = ''
-        //         this._callSubscribe();
-        //     }
-        // } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
-        //     this._state.dialogsPage.newMessageBody = action.newText;
-        //     this._callSubscribe();
-        // }
 
         this._state.profilePage = profileReducer(this._state.profilePage, action)
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
@@ -141,38 +110,6 @@ let store: StoreType = {
 
         this._callSubscribe();
 
-        // switch (action.type) {
-        //     case ADD_POST:
-        //         const newPost: PostType = {
-        //             id: new Date().getTime(),
-        //             message: action.postText,
-        //             likesCount: 0
-        //         }
-        //         this._state.profilePage.posts.push(newPost)
-        //         this._state.profilePage.newPostText = '';
-        //         this._callSubscribe()
-        //         break
-        //     case UPDATE_NEW_POST_TEXT:
-        //         this._state.profilePage.newPostText = action.newText;
-        //         this._callSubscribe();
-        //         break
-        //     case SEND_MESSAGE:
-        //         const newMessage: MessageType = {
-        //             id: new Date().getTime(),
-        //             message: this._state.dialogsPage.newMessageBody,
-        //         }
-        //         const trimmedText = this._state.dialogsPage.newMessageBody.trim()
-        //         if (trimmedText) {
-        //             this._state.dialogsPage.messages.push(newMessage)
-        //             this._state.dialogsPage.newMessageBody = ''
-        //             this._callSubscribe();
-        //         }
-        //         break
-        //     case UPDATE_NEW_MESSAGE_BODY:
-        //         this._state.dialogsPage.newMessageBody = action.newText;
-        //         this._callSubscribe();
-        //         break
-        // }
     }
 }
 
