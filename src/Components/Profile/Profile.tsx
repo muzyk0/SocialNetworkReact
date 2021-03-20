@@ -9,13 +9,13 @@ export type PropsType = {
     store: StoreType
 }
 
-function Profile(props: PropsType) {
+function Profile() {
 
     return (
         <div className={s.profile}>
             <ProfileLogo />
             <ProfileData />
-            <MyPostsContainer store={props.store}/>
+            <MyPostsContainer/>
         </div>
     );
 }

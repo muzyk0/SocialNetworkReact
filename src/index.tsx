@@ -4,12 +4,15 @@ import reportWebVitals from './reportWebVitals';
 import {store} from './redux/redux-store';
 import ReactDOM from 'react-dom';
 import App from './App';
+import {Provider, StoreContext} from './redux/StoreContext';
 
 export const rerenderEntireTree = () => {
     ReactDOM.render(
         <React.StrictMode>
-            <App store={store} dispatch={store.dispatch.bind(store)}
-            />
+            <Provider store={store}>
+                <App />
+            </Provider>
+
         </React.StrictMode>, document.getElementById('root')
     )
 }
