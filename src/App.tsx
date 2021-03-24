@@ -3,23 +3,9 @@ import './App.css';
 import Header from './Components/Header/Header';
 import Profile from './Components/Profile/Profile';
 import {HashRouter, Route} from 'react-router-dom';
-import {store} from './redux/redux-store';
 import {DialogsContainer} from './Components/Dialogs/DialogsContainer';
 import {SidebarContainer} from './Components/Sidebar/SidebarContainer';
-import {Dispatch} from 'redux';
-
-// export type AppStateType = {
-//     store: StoreType
-//     addPost: () => void
-//     addMessage: () => void
-//     updateNewPostText: (newText: string) => void
-//     updateNewDialogMessage: (newText: string) => void
-// }
-
-type PropsType = {
-    store: typeof store
-    dispatch: (action: Dispatch) => void // Todo ActionType's? or this?
-}
+import {UsersContainer} from './Components/Users/UsersContainer';
 
 const App = () => {
     return (
@@ -31,6 +17,7 @@ const App = () => {
                     <Route path='/profile' render={() => <Profile/>}/>
 
                     <Route path='/dialogs' render={() => <DialogsContainer />}/>
+                    <Route path='/users' render={() => <UsersContainer />}/>
                 </div>
             </div>
         </HashRouter>
