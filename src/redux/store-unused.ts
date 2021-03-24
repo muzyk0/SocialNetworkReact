@@ -1,6 +1,4 @@
-import {AddPostActionType, profileReducer, UpdateNewPostTextActionType} from './profile-reducer';
-import {AddMessageActionType, dialogsReducer, UpdateNewDialogMessageActionType} from './dialogs-reducer';
-import {sidebarReducer} from './sidebar-reducer';
+import React from 'react';
 
  type MessageType = {
     id: number
@@ -44,13 +42,13 @@ import {sidebarReducer} from './sidebar-reducer';
     _callSubscribe: () => void
     getState: () => RootStateType
     subscribe: (observer: () => void) => void
-    dispatch: (action: ActionsType) => void
+    // dispatch: (action: ActionsType2) => void
 }
 
- type ActionsType = AddPostActionType
+ /*type ActionsType2 = AddPostActionType
     | UpdateNewPostTextActionType
     | AddMessageActionType
-    | UpdateNewDialogMessageActionType;
+    | UpdateNewDialogMessageActionType;*/
 
 
 let storeUnused: StoreType = {
@@ -102,7 +100,7 @@ let storeUnused: StoreType = {
     subscribe(observer: () => void) {
         this._callSubscribe = observer
     },
-    dispatch(action) {
+    /*dispatch(action) {
 
         this._state.profilePage = profileReducer(this._state.profilePage, action)
         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
@@ -110,5 +108,5 @@ let storeUnused: StoreType = {
 
         this._callSubscribe();
 
-    }
+    }*/
 }

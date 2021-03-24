@@ -1,15 +1,11 @@
-import {ActionsType} from './redux-store';
+export const ADD_POST = 'ADD-POST'
+export const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 
 export type PostType = {
     id: number
     message: string
     likesCount: number
 }
-export type ProfilePostType = {
-    newPostText: string
-    posts: Array<PostType>
-}
-
 const initialState = {
     newPostText: '',
     posts: [
@@ -25,14 +21,11 @@ const initialState = {
         }
     ] as PostType[],
 }
+
 export type ProfileReducerInitialStateType = typeof initialState
 
-export const ADD_POST = 'ADD-POST'
 
-export const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
-
-export type AddPostActionType = ReturnType<typeof addPostActionCreator>
-export type UpdateNewPostTextActionType = ReturnType<typeof updateNewPostTextAC>
+type ActionsType = ReturnType<typeof addPostActionCreator> | ReturnType<typeof updateNewPostTextAC>
 
 export const addPostActionCreator = () => {
     return {type: ADD_POST} as const

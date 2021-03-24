@@ -1,14 +1,17 @@
-import {ActionsType} from './redux-store';
+
+export const SEND_MESSAGE = 'SEND-MESSAGE'
+export const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_DIALOG_MESSAGE'
 
 type MessageType = {
     id: number
     message: string
 }
+
+
 type DialogsType = {
     id: number
     name: string
 }
-
 
 const initialState = {
     newMessageBody: '',
@@ -28,11 +31,10 @@ const initialState = {
 
 export type DialogsInitialStateType = typeof initialState
 
-export const SEND_MESSAGE = 'SEND-MESSAGE'
-export const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_DIALOG_MESSAGE'
+/*export type AddMessageActionType = ReturnType<typeof sendMessageAC>
+export type UpdateNewDialogMessageActionType = ReturnType<typeof updateNewMessageBodyAC>*/
 
-export type AddMessageActionType = ReturnType<typeof sendMessageAC>
-export type UpdateNewDialogMessageActionType = ReturnType<typeof updateNewMessageBodyAC>
+type ActionsType = ReturnType<typeof sendMessageAC> | ReturnType<typeof updateNewMessageBodyAC>
 
 export const sendMessageAC = () => {
     return {type: SEND_MESSAGE} as const

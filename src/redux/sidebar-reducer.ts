@@ -1,5 +1,3 @@
-import {ActionsType} from './redux-store';
-
 export type FriendsType = {
     id: number
     name: string
@@ -19,6 +17,12 @@ const initialState = {
 }
 
 export type SidebarReducerInitialStateType = typeof initialState
+
+type ActionsType = ReturnType<typeof sidebar>
+
+export const sidebar = () => {
+    return {type: 'test'} as const
+}
 
 export const sidebarReducer = (state: SidebarReducerInitialStateType = initialState, action: ActionsType): SidebarReducerInitialStateType => {
 
