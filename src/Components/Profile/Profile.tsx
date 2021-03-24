@@ -3,10 +3,10 @@ import s from './Profile.module.css';
 import ProfileLogo from './ProfileLogo/ProfileLogo';
 import ProfileData from './ProfileData/ProfileData';
 import {MyPostsContainer} from './Posts/MyPostsContainer';
-import {StoreType} from '../../redux/redux-store';
+import {AppStateType} from '../../redux/redux-store';
 
 export type PropsType = {
-    store: StoreType
+    store: AppStateType
 }
 
 function Profile() {

@@ -1,45 +1,45 @@
-import {AddPostActionType, profileReducer, UpdateNewPostTextActionType} from './profileReducer';
-import {AddMessageActionType, dialogsReducer, UpdateNewDialogMessageActionType} from './dialogsReducer';
-import {sidebarReducer} from './sidebarReducer';
+import {AddPostActionType, profileReducer, UpdateNewPostTextActionType} from './profile-reducer';
+import {AddMessageActionType, dialogsReducer, UpdateNewDialogMessageActionType} from './dialogs-reducer';
+import {sidebarReducer} from './sidebar-reducer';
 
-export type MessageType = {
+ type MessageType = {
     id: number
     message: string
 }
-export type DialogsType = {
+ type DialogsType = {
     id: number
     name: string
 }
-export type PostType = {
+ type PostType = {
     id: number
     message: string
     likesCount: number
 }
-export type ProfilePostType = {
+ type ProfilePostType = {
     newPostText: string
     posts: Array<PostType>
 }
-export type DialogsPageType = {
+ type DialogsPageType = {
     newMessageBody: string
     dialogs: Array<DialogsType>
     messages: Array<MessageType>
 }
-export type FriendsType = {
+ type FriendsType = {
     id: number
     name: string
 }
 
-export type SidebarType = {
+ type SidebarType = {
     friends: Array<FriendsType>
 }
-export type RootStateType = {
+ type RootStateType = {
     profilePage: ProfilePostType
     dialogsPage: DialogsPageType
     sidebar: SidebarType
 }
 
 
-export type StoreType = {
+ type StoreType = {
     _state: RootStateType
     _callSubscribe: () => void
     getState: () => RootStateType
@@ -47,13 +47,13 @@ export type StoreType = {
     dispatch: (action: ActionsType) => void
 }
 
-export type ActionsType = AddPostActionType
+ type ActionsType = AddPostActionType
     | UpdateNewPostTextActionType
     | AddMessageActionType
     | UpdateNewDialogMessageActionType;
 
 
-let store: StoreType = {
+let storeUnused: StoreType = {
     _state: {
         profilePage: {
             newPostText: '',
@@ -112,5 +112,3 @@ let store: StoreType = {
 
     }
 }
-
-export default store

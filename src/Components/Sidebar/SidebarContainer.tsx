@@ -1,23 +1,26 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
-import s from './Sidebar.module.css';
-import {FriendsType, SidebarType} from '../../redux/store';
 import Sidebar from './Sidebar';
-import {StoreType} from '../../redux/redux-store';
-import {StoreContext} from '../../redux/StoreContext';
+import {AppStateType} from '../../redux/redux-store';
+import {connect} from 'react-redux';
+import { SidebarType } from '../../redux/sidebar-reducer';
 
-export type PropsType = {
-    store: StoreType
+
+type MapStateToPropsType = {
+    sidebar: SidebarType
+}
+type MapDispatchToPropsType = {}
+
+export type SidebarPropsType = MapStateToPropsType & MapDispatchToPropsType
+
+const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
+    return {
+        sidebar: state.sidebar
+    }
+}
+const mapDispatchToProps = () => {
+    return {
+
+    }
 }
 
-export const SidebarContainer = () => {
-    return (
-        <StoreContext.Consumer>
-            {store => {
-                const state = store.getState()
-                return <Sidebar sidebar={state.sidebar}/>
-            }}
-        </StoreContext.Consumer>
-)
-
-}
+export const SidebarContainer = connect(mapStateToProps, mapDispatchToProps)(Sidebar)

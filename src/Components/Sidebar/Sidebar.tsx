@@ -1,13 +1,11 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 import s from './Sidebar.module.css';
-import {FriendsType, SidebarType} from '../../redux/store';
+import {FriendsType, SidebarType} from '../../redux/sidebar-reducer';
+import {SidebarPropsType} from './SidebarContainer';
 
-export type PropsType = {
-    sidebar: SidebarType
-}
 
-const Sidebar: React.FC<PropsType> = (props) => {
+const Sidebar: React.FC<SidebarPropsType> = (props) => {
     return (
         <aside className={s.sidebar}>
             <nav >
@@ -26,7 +24,7 @@ const Sidebar: React.FC<PropsType> = (props) => {
 
 const SidebarFriendsBlock: React.FC<SidebarType> = (props) => {
 
-    const friendItem = props.friends.map(friend => <Friend id={friend.id} name={friend.name}/>)
+    const friendItem = props.friends.map(friend => <Friend key={friend.id} id={friend.id} name={friend.name}/>)
 
     return (
         <div>
