@@ -1,23 +1,24 @@
 {
   "files": {
     "main.css": "/SocialNetworkReact/static/css/main.d69970f8.chunk.css",
-    "main.js": "/SocialNetworkReact/static/js/main.7ad4edc5.chunk.js",
-    "main.js.map": "/SocialNetworkReact/static/js/main.7ad4edc5.chunk.js.map",
-    "runtime-main.js": "/SocialNetworkReact/static/js/runtime-main.2c1a3a73.js",
-    "runtime-main.js.map": "/SocialNetworkReact/static/js/runtime-main.2c1a3a73.js.map",
-    "static/js/2.a10981cb.chunk.js": "/SocialNetworkReact/static/js/2.a10981cb.chunk.js",
-    "static/js/2.a10981cb.chunk.js.map": "/SocialNetworkReact/static/js/2.a10981cb.chunk.js.map",
-    "static/js/3.87d10c92.chunk.js": "/SocialNetworkReact/static/js/3.87d10c92.chunk.js",
-    "static/js/3.87d10c92.chunk.js.map": "/SocialNetworkReact/static/js/3.87d10c92.chunk.js.map",
+    "main.js": "/SocialNetworkReact/static/js/main.d37d3aff.chunk.js",
+    "main.js.map": "/SocialNetworkReact/static/js/main.d37d3aff.chunk.js.map",
+    "runtime-main.js": "/SocialNetworkReact/static/js/runtime-main.79ab4b89.js",
+    "runtime-main.js.map": "/SocialNetworkReact/static/js/runtime-main.79ab4b89.js.map",
+    "static/js/2.75e61d81.chunk.js": "/SocialNetworkReact/static/js/2.75e61d81.chunk.js",
+    "static/js/2.75e61d81.chunk.js.map": "/SocialNetworkReact/static/js/2.75e61d81.chunk.js.map",
+    "static/js/3.90e8b4a1.chunk.js": "/SocialNetworkReact/static/js/3.90e8b4a1.chunk.js",
+    "static/js/3.90e8b4a1.chunk.js.map": "/SocialNetworkReact/static/js/3.90e8b4a1.chunk.js.map",
     "index.html": "/SocialNetworkReact/index.html",
     "static/css/main.d69970f8.chunk.css.map": "/SocialNetworkReact/static/css/main.d69970f8.chunk.css.map",
-    "static/js/2.a10981cb.chunk.js.LICENSE.txt": "/SocialNetworkReact/static/js/2.a10981cb.chunk.js.LICENSE.txt",
-    "static/media/logo.6ce24c58.svg": "/SocialNetworkReact/static/media/logo.6ce24c58.svg"
+    "static/js/2.75e61d81.chunk.js.LICENSE.txt": "/SocialNetworkReact/static/js/2.75e61d81.chunk.js.LICENSE.txt",
+    "static/media/logo.6ce24c58.svg": "/SocialNetworkReact/static/media/logo.6ce24c58.svg",
+    "static/media/userPhoto.b89021c6.png": "/SocialNetworkReact/static/media/userPhoto.b89021c6.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.2c1a3a73.js",
-    "static/js/2.a10981cb.chunk.js",
+    "static/js/runtime-main.79ab4b89.js",
+    "static/js/2.75e61d81.chunk.js",
     "static/css/main.d69970f8.chunk.css",
-    "static/js/main.7ad4edc5.chunk.js"
+    "static/js/main.d37d3aff.chunk.js"
   ]
 }
