@@ -2,14 +2,12 @@ import React from 'react';
 import userPhoto from '../../assets/images/userPhoto.png'
 import styles from './UsersContainer.module.css'
 import {ResponseItemType} from './UsersContainer';
-import {Preloader} from '../common/Preloader/Preloader';
 
 type PropsType = {
     users: ResponseItemType[]
     totalCount: number,
     pageSize: number
     currentPage: number
-    isFetching: boolean
     follow: (id: number) => void
     unfollow: (id: number) => void
     onPageChanged: (page: number) => void
@@ -53,7 +51,7 @@ export const Users: React.FC<PropsType> = (props) => {
         }
 
         return <>
-            {props.isFetching && <Preloader/>}
+
             <div>
                 {pages.map(page => {
                     return <span
