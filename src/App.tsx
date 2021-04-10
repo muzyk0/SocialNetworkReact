@@ -5,7 +5,7 @@ import Profile from './Components/Profile/Profile';
 import {HashRouter, Route} from 'react-router-dom';
 import {DialogsContainer} from './Components/Dialogs/DialogsContainer';
 import {SidebarContainer} from './Components/Sidebar/SidebarContainer';
-import {UsersContainer} from './Components/Users/UsersContainer';
+import UsersContainer from './Components/Users/UsersContainer';
 
 const App = () => {
     return (
@@ -14,10 +14,10 @@ const App = () => {
                 <Header/>
                 <SidebarContainer/>
                 <div className={'app_wrapper_content'}>
-                    <Route path='/profile' render={() => <Profile/>}/>
+                    <Route path="/profile" render={() => <Profile/>}/>
 
-                    <Route path='/dialogs' render={() => <DialogsContainer />}/>
-                    <Route path='/users' render={() => <UsersContainer />}/>
+                    <Route path="/dialogs" render={() => <DialogsContainer/>}/>
+                    <Route path="/users" render={() => <UsersContainer/>}/>
                 </div>
             </div>
         </HashRouter>
