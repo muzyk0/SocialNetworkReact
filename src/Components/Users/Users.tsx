@@ -2,6 +2,7 @@ import React from 'react';
 import userPhoto from '../../assets/images/userPhoto.png'
 import styles from './UsersContainer.module.css'
 import {ResponseItemType} from './UsersContainer';
+import { NavLink } from 'react-router-dom';
 
 type PropsType = {
     users: ResponseItemType[]
@@ -19,8 +20,8 @@ export const Users: React.FC<PropsType> = (props) => {
             return (
                 <div key={u.id}>
                     <div>
-                        <img src={u.photos.small !== null ? u.photos.small : userPhoto}
-                             className={styles.userPhoto} alt={'Avatar'}/>
+                        <NavLink to={`profile/${u.id}`}><img src={u.photos.small !== null ? u.photos.small : userPhoto}
+                                      className={styles.userPhoto} alt={'Avatar'}/></NavLink>
                     </div>
                     <div>
                         {u.followed
@@ -55,6 +56,7 @@ export const Users: React.FC<PropsType> = (props) => {
             <div>
                 {pages.map(page => {
                     return <span
+                        key={page}
                         className={props.currentPage === page ? styles.selectedPage : ''}
                         onClick={() => {
                             props.onPageChanged(page)
