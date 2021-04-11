@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './ProfileData.module.css'
 import {ProfileType} from '../../../redux/profile-reducer';
 import {Preloader} from '../../common/Preloader/Preloader';
+import defaultUserPhoto from '../../../assets/images/userPhoto.png'
 
 type PropsType = {
     profile: ProfileType | null
@@ -12,10 +13,9 @@ const ProfileData = (props: PropsType) => {
     if (!profile) {
         return <Preloader/>
     }
-    debugger
     return (
         <div className={styles.profileData}>
-            <img src={profile.photos.small ? profile.photos.small : ''} alt="profile avatar"/>
+            <img src={profile.photos.small ? profile.photos.small : defaultUserPhoto} alt="profile avatar"/>
             <div>
                 <h3>{profile.fullName}</h3>
             </div>
