@@ -19,10 +19,10 @@ const ProfileData = (props: PropsType) => {
             <div>
                 <h3>{profile.fullName}</h3>
             </div>
-            <div>
+            {profile.aboutMe && <div>
                 <h3>About me:</h3>
                 <span>{profile.aboutMe}</span>
-            </div>
+            </div>}
             <div>
                 <h3>My contacts:</h3>
                 <ProfileContacts contacts={profile.contacts}/>

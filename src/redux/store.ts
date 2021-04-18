@@ -5,13 +5,15 @@ import {sidebarReducer} from './sidebar-reducer';
 import {usersReducer} from './users-reducer';
 import thunk from 'redux-thunk';
 import {composeWithDevTools} from 'redux-devtools-extension';
+import {authReducer} from './auth-reducer';
 
 
 export const rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     sidebar: sidebarReducer,
-    usersPage: usersReducer
+    usersPage: usersReducer,
+    auth: authReducer,
 })
 
 export type AppStateType = ReturnType<typeof rootReducer>

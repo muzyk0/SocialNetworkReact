@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import {Users} from './Users';
 import {connect} from 'react-redux';
-import {AppStateType} from '../../redux/redux-store';
+import {AppStateType} from '../../redux/store';
 import {
     follow,
     setCurrentPage,

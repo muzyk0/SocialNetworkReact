@@ -1,5 +1,5 @@
 import Sidebar from './Sidebar';
-import {AppStateType} from '../../redux/redux-store';
+import {AppStateType} from '../../redux/store';
 import {connect} from 'react-redux';
 import { SidebarType } from '../../redux/sidebar-reducer';
 
