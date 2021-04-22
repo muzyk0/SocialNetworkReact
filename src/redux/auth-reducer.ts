@@ -1,3 +1,6 @@
+import {usersAPI} from '../API/api';
+import {Dispatch} from 'redux';
+
 export enum USERS_ACTIONS {
     SET_USER_DATA = 'SET_USER_DATA',
 }
@@ -35,7 +38,7 @@ export const authReducer = (state: authInitialStatePropsType = initialState, act
 
 export type ActionsType = ReturnType<typeof setAuthUserData>
 
-
+// Action Creators
 export const setAuthUserData = (id: number, login: string, email: string) => {
     return {
         type: USERS_ACTIONS.SET_USER_DATA,
@@ -45,4 +48,29 @@ export const setAuthUserData = (id: number, login: string, email: string) => {
             email
         }
     } as const
+}
+
+// Thunk Creator
+type ResponseType = {
+    data: AuthResponseType
+}
+type AuthResponseType = {
+    data: {
+        id: number
+        login: string
+        email: string
+    }
+    'messages': [],
+    'fieldsErrors': [],
+    'resultCode': 0
+}
+
+export const getUserData = () => (dispatch: Dispatch) => {
+    usersAPI.setAuthUserData()
+        .then((response: ResponseType) => {
+            const data = response.data.data
+            if (!response.data.resultCode) {
+                dispatch(setAuthUserData(data.id, data.login, data.email))
+            }
+        })
 }

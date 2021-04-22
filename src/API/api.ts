@@ -40,5 +40,14 @@ export const usersAPI = {
     unfollow: (id: number = 2) => {
         return instance.delete(`https://social-network.samuraijs.com/api/1.0/follow/${id}`)
             .then((response) => response.data)
+    },
+    setAuthUserData: () => {
+        return instance.get(`https://social-network.samuraijs.com/api/1.0/auth/me`)
+
+    },
+    setProfileData: (userId: string) => {
+        return instance.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
+
     }
 }
+

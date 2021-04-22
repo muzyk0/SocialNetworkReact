@@ -1,3 +1,6 @@
+import {Dispatch} from 'redux';
+import {usersAPI} from '../API/api';
+
 export enum PROFILE_ACTION_TYPE {
     ADD_POST = 'ADD-POST',
     UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT',
@@ -90,6 +93,7 @@ type ActionsType = ReturnType<typeof addPostActionCreator>
     | ReturnType<typeof updateNewPostTextAC>
     | ReturnType<typeof setUserProfile>
 
+// Action Creators
 export const addPostActionCreator = () => {
     return {type: PROFILE_ACTION_TYPE.ADD_POST} as const
 }
@@ -98,4 +102,15 @@ export const updateNewPostTextAC = (postText: string) => {
 }
 export const setUserProfile = (profile: ProfileType) => {
     return {type: PROFILE_ACTION_TYPE.SET_USER_PROFILE, profile} as const
+}
+
+// Thunk Creator
+type ResponseType = {
+    data: ProfileType
+}
+export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
+    usersAPI.setProfileData(userId)
+        .then((response: ResponseType) => {
+            dispatch(setUserProfile(response.data))
+        })
 }
