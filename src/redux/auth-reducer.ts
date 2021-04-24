@@ -1,4 +1,4 @@
-import {usersAPI} from '../API/api';
+import {authAPI} from '../API/api';
 import {Dispatch} from 'redux';
 
 export enum USERS_ACTIONS {
@@ -65,12 +65,12 @@ type AuthResponseType = {
     'resultCode': 0
 }
 
-export const getUserData = () => (dispatch: Dispatch) => {
-    usersAPI.setAuthUserData()
+export const getAuthUserData = () => (dispatch: Dispatch) => {
+    authAPI.me()
         .then((response: ResponseType) => {
-            const data = response.data.data
+            const {id, login, email} = response.data.data
             if (!response.data.resultCode) {
-                dispatch(setAuthUserData(data.id, data.login, data.email))
+                dispatch(setAuthUserData(id, login, email))
             }
         })
 }

@@ -3,10 +3,10 @@ import {Users} from './Users';
 import {connect, ConnectedProps} from 'react-redux';
 import {AppStateType} from '../../redux/store';
 import {
-    followAccept,
+    follow,
     getUsers,
     setCurrentPage,
-    unfollowAccept,
+    unfollow,
     UsersInitialStatePropsType
 } from '../../redux/users-reducer';
 import {Preloader} from '../common/Preloader/Preloader';
@@ -24,10 +24,10 @@ export class UsersContainerAPI extends React.Component<UsersPropsType> {
     }
 
     onFollow = (id: number) => {
-        this.props.followAccept(id)
+        this.props.follow(id)
     }
     onUnFollow = (id: number) => {
-        this.props.unfollowAccept(id)
+        this.props.unfollow(id)
     }
 
     render() {
@@ -70,8 +70,8 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 const connector = connect(mapStateToProps, {
         setCurrentPage,
     getUsers,
-    followAccept,
-    unfollowAccept
+    follow,
+    unfollow
 })
 
 export type UsersPropsType = ConnectedProps<typeof connector>

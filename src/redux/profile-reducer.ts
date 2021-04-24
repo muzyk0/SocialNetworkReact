@@ -109,7 +109,7 @@ type ResponseType = {
     data: ProfileType
 }
 export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
-    usersAPI.setProfileData(userId)
+    usersAPI.getProfile(userId)
         .then((response: ResponseType) => {
             dispatch(setUserProfile(response.data))
         })

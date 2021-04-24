@@ -81,8 +81,8 @@ export const usersReducer = (state: UsersInitialStateType = initialState, action
 }
 
 
-export type ActionsType = ReturnType<typeof follow>
-    | ReturnType<typeof unfollow>
+export type ActionsType = ReturnType<typeof followSuccess>
+    | ReturnType<typeof unfollowSuccess>
     | ReturnType<typeof setUsers>
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setTotalUsersCount>
@@ -91,10 +91,10 @@ export type ActionsType = ReturnType<typeof follow>
 
 
 // Action Creators
-export const follow = (userID: number) => {
+export const followSuccess = (userID: number) => {
     return {type: USERS_ACTIONS.FOLLOW, userID} as const
 }
-export const unfollow = (userID: number) => {
+export const unfollowSuccess = (userID: number) => {
     return {type: USERS_ACTIONS.UNFOLLOW, userID} as const
 }
 export const setUsers = (users: UsersInitialStatePropsType[]) => {
@@ -123,22 +123,22 @@ export const getUsers = (currentPage: number, pageSize: number) => (dispatch: Di
             dispatch(setTotalUsersCount(data.totalCount))
         })
 }
-export const followAccept = (userId: number) => (dispatch: Dispatch) => {
+export const follow = (userId: number) => (dispatch: Dispatch) => {
     dispatch(toggleFollowingProgress(true, userId))
     usersAPI.follow(userId)
         .then((data) => {
             if (data.resultCode === 0) {
-                dispatch(follow(userId))
+                dispatch(followSuccess(userId))
                 dispatch(toggleFollowingProgress(false, userId))
             }
         })
 }
-export const unfollowAccept = (userId: number) => (dispatch: Dispatch) => {
+export const unfollow = (userId: number) => (dispatch: Dispatch) => {
     dispatch(toggleFollowingProgress(true, userId))
     usersAPI.unfollow(userId)
         .then((data) => {
             if (data.resultCode === 0) {
-                dispatch(unfollow(userId))
+                dispatch(unfollowSuccess(userId))
                 dispatch(toggleFollowingProgress(false, userId))
             }
         })

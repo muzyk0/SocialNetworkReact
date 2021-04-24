@@ -34,20 +34,20 @@ export const usersAPI = {
             .then((response: ResponseType) => response.data)
     },
     follow: (id: number = 2) => {
-        return instance.post(`https://social-network.samuraijs.com/api/1.0/follow/${id}`)
+        return instance.post(`follow/${id}`)
             .then((response) => response.data)
     },
     unfollow: (id: number = 2) => {
-        return instance.delete(`https://social-network.samuraijs.com/api/1.0/follow/${id}`)
+        return instance.delete(`follow/${id}`)
             .then((response) => response.data)
     },
-    setAuthUserData: () => {
-        return instance.get(`https://social-network.samuraijs.com/api/1.0/auth/me`)
-
-    },
-    setProfileData: (userId: string) => {
-        return instance.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-
+    getProfile: (userId: string) => {
+        return instance.get(`profile/${userId}`)
     }
+}
+export const authAPI = {
+    me: () => {
+        return instance.get(`auth/me`)
+    },
 }
 
