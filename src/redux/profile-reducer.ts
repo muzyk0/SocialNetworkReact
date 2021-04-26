@@ -1,5 +1,7 @@
 import {Dispatch} from 'redux';
 import {usersAPI} from '../API/api';
+import {AppThunkType} from './store';
+import {authReducer} from './auth-reducer';
 
 export enum PROFILE_ACTION_TYPE {
     ADD_POST = 'ADD-POST',
@@ -53,7 +55,7 @@ const initialState = {
 export type ProfileReducerInitialStateType = typeof initialState
 
 
-export const profileReducer = (state: ProfileReducerInitialStateType = initialState, action: ActionsType): ProfileReducerInitialStateType => {
+export const profileReducer = (state: ProfileReducerInitialStateType = initialState, action: profileActionsType): ProfileReducerInitialStateType => {
 
     switch (action.type) {
         case PROFILE_ACTION_TYPE.ADD_POST:
@@ -89,7 +91,7 @@ export const profileReducer = (state: ProfileReducerInitialStateType = initialSt
 
 }
 
-type ActionsType = ReturnType<typeof addPostActionCreator>
+export type profileActionsType = ReturnType<typeof addPostActionCreator>
     | ReturnType<typeof updateNewPostTextAC>
     | ReturnType<typeof setUserProfile>
 
@@ -108,9 +110,11 @@ export const setUserProfile = (profile: ProfileType) => {
 type ResponseType = {
     data: ProfileType
 }
-export const getUserProfile = (userId: string) => (dispatch: Dispatch) => {
-    usersAPI.getProfile(userId)
-        .then((response: ResponseType) => {
-            dispatch(setUserProfile(response.data))
-        })
+export const getUserProfile = (userId: string): AppThunkType => async dispatch => {
+    try {
+        const response: ResponseType = await usersAPI.getProfile(userId)
+        dispatch(setUserProfile(response.data))
+    } catch (e) {
+        throw new Error()
+    }
 }
