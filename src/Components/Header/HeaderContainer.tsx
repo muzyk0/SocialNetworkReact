@@ -5,7 +5,6 @@ import {getAuthUserData} from '../../redux/auth-reducer';
 import {AppStateType} from '../../redux/store';
 
 export class HeaderContainer extends React.Component<HeaderPropsType> {
-
     componentDidMount() {
         this.props.getAuthUserData()
     }

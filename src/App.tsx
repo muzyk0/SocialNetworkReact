@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import {HashRouter, Route} from 'react-router-dom';
-import {DialogsContainer} from './Components/Dialogs/DialogsContainer';
+import DialogsContainer from './Components/Dialogs/DialogsContainer';
 import {SidebarContainer} from './Components/Sidebar/SidebarContainer';
 import UsersContainer from './Components/Users/UsersContainer';
 import ProfileContainer from './Components/Profile/ProfileContainer';

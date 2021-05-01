@@ -68,7 +68,7 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 }
 
 const connector = connect(mapStateToProps, {
-        setCurrentPage,
+    setCurrentPage,
     getUsers,
     follow,
     unfollow

@@ -1,5 +1,4 @@
 import {authAPI} from '../API/api';
-import {Dispatch} from 'redux';
 import {AppThunkType} from './store';
 
 export enum USERS_ACTIONS {
