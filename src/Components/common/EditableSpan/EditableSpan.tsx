@@ -1,17 +1,14 @@
 import React, {ChangeEventHandler} from 'react';
-import {usersAPI} from '../../../API/api';
 
-class EditableSpan extends React.Component {
-    componentDidMount() {
-        usersAPI.getProfileStatus('2')
-            .then(response => {
+type PropsType = {
+    title: string
+    onChange: (value: string) => void
+}
 
-            })
-    }
-
+class EditableSpan extends React.Component<PropsType> {
     state = {
         editMode: false,
-        status: '',
+        title: this.props.title,
     }
 
     activateEditMode = () => {
@@ -23,22 +20,37 @@ class EditableSpan extends React.Component {
     DeactivateEditMode = () => {
         this.setState({
             ...this.state,
-            editMode: true,
+            editMode: false,
         })
+        this.props.onChange(this.state.title)
+    }
+
+    onChange = (e: any) => {
+        this.setState({
+            status: e.currentTarget.value
+        })
+    }
+
+    componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<{}>, snapshot?: any) {
+        if (prevProps.title !== this.state.title) {
+            this.setState({
+                title: this.props.title
+            })
+        }
     }
 
     render() {
         return (
             <div>
                 {!this.state.editMode && <div>
-                    <span onDoubleClick={this.activateEditMode}>status</span>
+                    <span onDoubleClick={this.activateEditMode}>{this.props.title || 'Status is not defined'}</span>
                 </div>}
                 {this.state.editMode && <div>
                     <input
                         type={'text'}
-                        value={this.state.status}
+                        value={this.state.title}
                         onBlur={this.DeactivateEditMode}
-                        onChange={() => {}}
+                        onChange={this.onChange}
                         autoFocus
                     />
                 </div>}

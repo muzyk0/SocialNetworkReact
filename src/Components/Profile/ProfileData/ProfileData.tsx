@@ -7,6 +7,8 @@ import EditableSpan from '../../common/EditableSpan/EditableSpan';
 
 type PropsType = {
     profile: ProfileType | null
+    status: string
+    updateStatus: (status: string) => void
 }
 const ProfileData = (props: PropsType) => {
     const {profile} = props
@@ -21,7 +23,7 @@ const ProfileData = (props: PropsType) => {
                 <h3>{profile.fullName}</h3>
             </div>
 
-            <EditableSpan/>
+            <EditableSpan title={props.status} onChange={props.updateStatus}/>
 
             {profile.aboutMe && <div>
                 <h3>About me:</h3>

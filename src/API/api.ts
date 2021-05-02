@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {ProfileType} from '../redux/profile-reducer';
 
 export type ResponseItemType = {
     'name': string
@@ -41,11 +42,21 @@ export const usersAPI = {
         return instance.delete(`follow/${id}`)
             .then((response) => response.data)
     },
+}
+
+
+
+export const profileAPI = {
     getProfile: (userId: string) => {
-        return instance.get(`profile/${userId}`)
+        return instance.get<ProfileType>(`profile/${userId}`)
     },
-    getProfileStatus: (userId: string) => {
-        return instance.get(`/profile/status/${userId}`)
+    getStatus: (userId: string) => {
+        return instance.get<string>(`/profile/status/${userId}`)
+    },
+    updateStatus: (status: string) => {
+        return instance.put(`/profile/status/`, {
+            status: status
+        })
     }
 }
 export const authAPI = {

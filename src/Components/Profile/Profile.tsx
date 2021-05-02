@@ -8,7 +8,11 @@ const Profile = (props: ProfilePropsType) => {
     return (
         <div className={s.profile}>
             {/*<ProfileLogo />*/}
-            <ProfileData profile={props.profile}/>
+            <ProfileData
+                profile={props.profile}
+                status={props.status}
+                updateStatus={props.updateStatus}
+            />
             <MyPostsContainer/>
         </div>
     );
