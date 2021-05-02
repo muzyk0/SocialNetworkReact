@@ -3,6 +3,7 @@ import styles from './ProfileData.module.css'
 import {ProfileType} from '../../../redux/profile-reducer';
 import {Preloader} from '../../common/Preloader/Preloader';
 import defaultUserPhoto from '../../../assets/images/userPhoto.png'
+import EditableSpan from '../../common/EditableSpan/EditableSpan';
 
 type PropsType = {
     profile: ProfileType | null
@@ -19,6 +20,9 @@ const ProfileData = (props: PropsType) => {
             <div>
                 <h3>{profile.fullName}</h3>
             </div>
+
+            <EditableSpan/>
+
             {profile.aboutMe && <div>
                 <h3>About me:</h3>
                 <span>{profile.aboutMe}</span>
