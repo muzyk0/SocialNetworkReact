@@ -1,13 +1,17 @@
 import React from 'react';
-import LoginForm from './LoginForm';
+import LoginReduxForm from './LoginForm';
 
 type Props = {}
 
-const LoginPage = (props: Props) => {
+const LoginPage: React.FC<Props> = props => {
+    const onSubmit = (formData: any) => {
+        console.log(formData)
+    }
+
     return (
         <div>
             <h1>Login</h1>
-            <LoginForm/>
+            <LoginReduxForm onSubmit={onSubmit}/>
         </div>
     )
 }

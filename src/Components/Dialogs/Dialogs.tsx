@@ -3,7 +3,6 @@ import s from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogsItem';
 import Message from './Messages/Message';
 import {DialogsPropsType} from './DialogsContainer';
-import {Redirect} from 'react-router-dom';
 
 
 function Dialogs(props: DialogsPropsType) {

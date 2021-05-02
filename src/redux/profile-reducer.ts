@@ -1,4 +1,4 @@
-import {profileAPI, usersAPI} from '../API/api';
+import {profileAPI} from '../API/api';
 import {AppThunkType} from './store';
 
 export enum PROFILE_ACTION_TYPE {
