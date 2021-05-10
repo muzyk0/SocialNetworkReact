@@ -1,0 +1,15 @@
+.form-control {
+  color: red;
+}
+.error input,
+.error textarea {
+  outline: none;
+  border: solid red 1px;
+}
+.formSummaryError {
+  display: inline-block;
+  border: red 1px solid;
+  padding: 5px;
+  margin: 5px 0;
+  color: #ef664c;
+}

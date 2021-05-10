@@ -1,5 +1,6 @@
 import {authAPI} from '../API/api';
 import {AppThunkType} from './store';
+import {stopSubmit} from 'redux-form';
 
 export enum USERS_ACTIONS {
     SET_USER_DATA = 'SET_USER_DATA',
@@ -82,12 +83,11 @@ export const login = (email: string, password: string, rememberMe: boolean): App
     try {
         const response = await authAPI.login(email, password, rememberMe)
 
-        switch (response.data.resultCode) {
-            case 0:
-                return dispatch(getAuthUserData())
-            case 1:
-            case 10:
-                return dispatch(setAuthError(response.data.messages[0]))
+        if (response.data.resultCode === 0) {
+            return dispatch(getAuthUserData())
+        } else {// return dispatch(setAuthError(response.data.messages[0]))
+            const message = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error'
+            return dispatch(stopSubmit('Login', {_error: message}))
         }
 
     } catch (e) {
