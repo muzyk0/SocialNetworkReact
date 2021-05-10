@@ -3,7 +3,6 @@ import {AppThunkType} from './store';
 
 export enum PROFILE_ACTION_TYPE {
     ADD_POST = 'APP/PROFILE/ADD-POST',
-    UPDATE_NEW_POST_TEXT = 'APP/PROFILE/UPDATE-NEW-POST-TEXT',
     SET_USER_PROFILE = 'APP/PROFILE/SET_PROFILE_INFO-NEW-POST-TEXT',
     SET_STATUS = 'APP/PROFILE/SET_STATUS',
 }
@@ -35,7 +34,6 @@ export type ProfileType = {
     }
 }
 let initialState = {
-    newPostText: '',
     posts: [
         {
             id: 1,
@@ -61,24 +59,19 @@ export const profileReducer = (state: ProfileReducerInitialStateType = initialSt
         case PROFILE_ACTION_TYPE.ADD_POST:
             const newPost: PostType = {
                 id: new Date().getTime(),
-                message: state.newPostText,
+                message: action.newPostText,
                 likesCount: 0
             }
-            const trimmedText = newPost.message
+            const trimmedText = newPost.message.trim()
             if (trimmedText) {
                 return {
                     ...state,
                     posts: [...state.posts, newPost],
-                    newPostText: ''
                 }
             }
 
             return state
-        case PROFILE_ACTION_TYPE.UPDATE_NEW_POST_TEXT:
-            return {
-                ...state,
-                newPostText: action.newText
-            }
+
         case PROFILE_ACTION_TYPE.SET_USER_PROFILE:
             return {
                 ...state,
@@ -97,16 +90,13 @@ export const profileReducer = (state: ProfileReducerInitialStateType = initialSt
 }
 
 export type profileActionsType = ReturnType<typeof addPostActionCreator>
-    | ReturnType<typeof updateNewPostTextAC>
+
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setStatus>
 
 // Action Creators
-export const addPostActionCreator = () => {
-    return {type: PROFILE_ACTION_TYPE.ADD_POST} as const
-}
-export const updateNewPostTextAC = (postText: string) => {
-    return {type: PROFILE_ACTION_TYPE.UPDATE_NEW_POST_TEXT, newText: postText} as const
+export const addPostActionCreator = (newPostText: string) => {
+    return {type: PROFILE_ACTION_TYPE.ADD_POST, newPostText} as const
 }
 export const setUserProfile = (profile: ProfileType) => {
     return {type: PROFILE_ACTION_TYPE.SET_USER_PROFILE, profile} as const

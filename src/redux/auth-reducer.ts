@@ -1,5 +1,6 @@
 import {authAPI} from '../API/api';
 import {AppThunkType} from './store';
+import {FormDataType} from '../Components/Login/LoginForm';
 
 export enum USERS_ACTIONS {
     SET_USER_DATA = 'SET_USER_DATA',
@@ -51,20 +52,6 @@ export const setAuthUserData = (id: number, login: string, email: string) => {
 }
 
 // Thunk Creator
-type ResponseType = {
-    data: AuthResponseType
-}
-
-type AuthResponseType = {
-    data: {
-        id: number
-        login: string
-        email: string
-    }
-    'messages': [],
-    'fieldsErrors': [],
-    'resultCode': 0
-}
 
 // export const getAuthUserData = () => (dispatch: Dispatch<authActionsType>) => {
 //     authAPI.me()
@@ -78,10 +65,24 @@ type AuthResponseType = {
 
 export const getAuthUserData = (): AppThunkType => async dispatch => {
     try {
-        const response: ResponseType = await authAPI.me()
+        const response = await authAPI.me()
         const {id, login, email} = response.data.data
         if (!response.data.resultCode) {
             dispatch(setAuthUserData(id, login, email))
+        }
+
+    } catch (e) {
+        throw new Error()
+    }
+
+}
+export const loginTC = (formData: FormDataType): AppThunkType => async dispatch => {
+    try {
+        const {login, password, rememberMe} = formData
+        const response = await authAPI.login(login, password, rememberMe)
+
+        if (!response.data.resultCode) {
+            dispatch(getAuthUserData())
         }
 
     } catch (e) {

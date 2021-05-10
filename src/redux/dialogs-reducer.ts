@@ -1,12 +1,9 @@
-
 export const SEND_MESSAGE = 'SEND-MESSAGE'
-export const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_DIALOG_MESSAGE'
 
 type MessageType = {
     id: number
     message: string
 }
-
 
 type DialogsType = {
     id: number
@@ -14,7 +11,6 @@ type DialogsType = {
 }
 
 const initialState = {
-    newMessageBody: '',
     dialogs: [
         {id: 1, name: 'Dimych',},
         {id: 2, name: 'Nasty',},
@@ -39,31 +35,24 @@ export const dialogsReducer = (state: DialogsInitialStateType = initialState, ac
         case SEND_MESSAGE:
             const newMessage: MessageType = {
                 id: new Date().getTime(),
-                message: state.newMessageBody,
+                message: action.value,
             }
-            const trimmedText = state.newMessageBody.trim()
+            const trimmedText = action.value.trim()
             if (trimmedText) {
                 return {
                     ...state,
                     messages: [...state.messages, newMessage],
-                    newMessageBody: ''
                 }
             }
             return state
-        case UPDATE_NEW_MESSAGE_BODY:
-            return {...state, newMessageBody: action.body}
-
         default:
             return state
     }
 }
 
 
-export type dialogsActionsType = ReturnType<typeof sendMessageAC> | ReturnType<typeof updateNewMessageBodyAC>
+export type dialogsActionsType = ReturnType<typeof sendMessageAC>
 
-export const sendMessageAC = () => {
-    return {type: SEND_MESSAGE} as const
-}
-export const updateNewMessageBodyAC = (messageText: string) => {
-    return {type: UPDATE_NEW_MESSAGE_BODY, body: messageText} as const
+export const sendMessageAC = (value: string) => {
+    return {type: SEND_MESSAGE, value} as const
 }

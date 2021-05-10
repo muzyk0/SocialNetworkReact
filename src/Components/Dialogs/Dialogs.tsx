@@ -1,8 +1,9 @@
-import React, {ChangeEvent} from 'react';
+import React from 'react';
 import s from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogsItem';
 import Message from './Messages/Message';
 import {DialogsPropsType} from './DialogsContainer';
+import AddMessageForm, {MessageFormDataType} from './AddMessageForm';
 
 
 function Dialogs(props: DialogsPropsType) {
@@ -10,21 +11,14 @@ function Dialogs(props: DialogsPropsType) {
     const state = props.dialogsPage
 
     const dialogsElements = state.dialogs.map(dialogs => <DialogItem key={dialogs.id}
-                                                                           name={dialogs.name}
-                                                                           id={dialogs.id}/>)
+                                                                     name={dialogs.name}
+                                                                     id={dialogs.id}/>)
 
     const messagesElements = state.messages.map(message => <Message key={message.id}
-                                                                          message={message.message}/>)
-    const newMessageBody = state.newMessageBody
+                                                                    message={message.message}/>)
 
-
-    const onSendMessageClick = () => {
-        props.onSendMessage()
-    }
-    const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-
-        const messageText = e.currentTarget.value;
-        props.updateNewMessageBody(messageText)
+    const addNewMessage = (formData: MessageFormDataType) => {
+        props.onSendMessage(formData.newMessageBody)
     }
 
     return (
@@ -34,19 +28,13 @@ function Dialogs(props: DialogsPropsType) {
             </div>
             <div className={s.messages}>
                 {messagesElements}
-                <div>
-                    <textarea placeholder={'Enter your message'}
-                              value={newMessageBody}
-                              onChange={onNewMessageChange}/>
-                </div>
-                <div>
-                    <button onClick={onSendMessageClick}>Send message</button>
-                </div>
+                <AddMessageForm onSubmit={addNewMessage}/>
             </div>
 
         </div>
     );
 }
+
 
 
 export default Dialogs;

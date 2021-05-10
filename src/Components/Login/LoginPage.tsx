@@ -1,11 +1,11 @@
 import React from 'react';
-import LoginReduxForm from './LoginForm';
-
-type Props = {}
+import LoginReduxForm, {FormDataType} from './LoginForm';
+import {loginTC} from '../../redux/auth-reducer';
+import {connect, ConnectedProps} from 'react-redux';
 
 const LoginPage: React.FC<Props> = props => {
-    const onSubmit = (formData: any) => {
-        console.log(formData)
+    const onSubmit = (formData: FormDataType) => {
+        props.loginTC(formData)
     }
 
     return (
@@ -15,4 +15,10 @@ const LoginPage: React.FC<Props> = props => {
         </div>
     )
 }
-export default LoginPage
+
+type Props = ConnectedProps<typeof connector>
+
+const connector = connect(null, {loginTC})
+
+
+export default connector(LoginPage)
