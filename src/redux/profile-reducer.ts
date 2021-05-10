@@ -62,15 +62,12 @@ export const profileReducer = (state: ProfileReducerInitialStateType = initialSt
                 message: action.newPostText,
                 likesCount: 0
             }
-            const trimmedText = newPost.message.trim()
-            if (trimmedText) {
-                return {
-                    ...state,
-                    posts: [...state.posts, newPost],
-                }
+
+            return {
+                ...state,
+                posts: [...state.posts, newPost],
             }
 
-            return state
 
         case PROFILE_ACTION_TYPE.SET_USER_PROFILE:
             return {

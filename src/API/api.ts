@@ -45,8 +45,6 @@ export const usersAPI = {
 }
 
 
-
-
 export const profileAPI = {
     getProfile: (userId: string) => {
         return instance.get<ProfileType>(`profile/${userId}`)
@@ -68,21 +66,23 @@ type AuthResponseType = {
         login: string
         email: string
     }
-    'messages': [],
+    'messages': string[]
     'fieldsErrors': [],
-    'resultCode': 0
+    'resultCode': number
 }
 
-export const authAPI =  {
+export const authAPI = {
     me: () => {
         return instance.get<AuthResponseType>(`auth/me`)
     },
-    login: (email: string,password: string,rememberMe: boolean,) => {
-        return instance.post(`auth/login`, {
+    login: (email: string, password: string, rememberMe: boolean = false,) => {
+        return instance.post<AuthResponseType>(`auth/login`, {
             email,
             password,
             rememberMe,
         })
     },
+    logout: () => {
+        return instance.delete(`auth/login`)
+    },
 }
-

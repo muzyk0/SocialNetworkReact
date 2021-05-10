@@ -1,9 +1,9 @@
 import {authAPI} from '../API/api';
 import {AppThunkType} from './store';
-import {FormDataType} from '../Components/Login/LoginForm';
 
 export enum USERS_ACTIONS {
     SET_USER_DATA = 'SET_USER_DATA',
+    SET_AUTH_ERROR = 'SET_AUTH_ERROR',
 }
 
 
@@ -12,6 +12,7 @@ export type authInitialStatePropsType = {
     login: string | null
     email: string | null
     isAuth: boolean
+    error: string | null
 }
 
 const initialState: authInitialStatePropsType = {
@@ -19,6 +20,7 @@ const initialState: authInitialStatePropsType = {
     login: null,
     email: null,
     isAuth: false,
+    error: null
 }
 
 export const authReducer = (state: authInitialStatePropsType = initialState, action: authActionsType): authInitialStatePropsType => {
@@ -28,7 +30,11 @@ export const authReducer = (state: authInitialStatePropsType = initialState, act
             return {
                 ...state,
                 ...action.payload,
-                isAuth: true
+            }
+        case USERS_ACTIONS.SET_AUTH_ERROR:
+            return {
+                ...state,
+                ...action.payload,
             }
         default:
             return state
@@ -38,55 +44,70 @@ export const authReducer = (state: authInitialStatePropsType = initialState, act
 }
 
 // Action Creators
-export type authActionsType = ReturnType<typeof setAuthUserData>
-
-export const setAuthUserData = (id: number, login: string, email: string) => {
+export const setAuthUserData = (id: number | null, login: string | null, email: string | null, isAuth: boolean) => {
     return {
         type: USERS_ACTIONS.SET_USER_DATA,
         payload: {
             id,
             login,
-            email
+            email,
+            isAuth,
         }
     } as const
 }
 
-// Thunk Creator
-
-// export const getAuthUserData = () => (dispatch: Dispatch<authActionsType>) => {
-//     authAPI.me()
-//         .then((response: ResponseType) => {
-//             const {id, login, email} = response.data.data
-//             if (!response.data.resultCode) {
-//                 dispatch(setAuthUserData(id, login, email))
-//             }
-//         })
-// }
+export const setAuthError = (error: string | null) => {
+    return {
+        type: USERS_ACTIONS.SET_AUTH_ERROR,
+        payload: {
+            error
+        }
+    } as const
+}
+// Thunk Creators
 
 export const getAuthUserData = (): AppThunkType => async dispatch => {
     try {
         const response = await authAPI.me()
         const {id, login, email} = response.data.data
         if (!response.data.resultCode) {
-            dispatch(setAuthUserData(id, login, email))
+            dispatch(setAuthUserData(id, login, email, true))
         }
 
     } catch (e) {
         throw new Error()
     }
-
 }
-export const loginTC = (formData: FormDataType): AppThunkType => async dispatch => {
+export const login = (email: string, password: string, rememberMe: boolean): AppThunkType => async dispatch => {
     try {
-        const {login, password, rememberMe} = formData
-        const response = await authAPI.login(login, password, rememberMe)
+        const response = await authAPI.login(email, password, rememberMe)
+
+        switch (response.data.resultCode) {
+            case 0:
+                return dispatch(getAuthUserData())
+            case 1:
+            case 10:
+                return dispatch(setAuthError(response.data.messages[0]))
+        }
+
+    } catch (e) {
+        throw new Error()
+    }
+}
+export const logout = (): AppThunkType => async dispatch => {
+    try {
+        const response = await authAPI.logout()
 
         if (!response.data.resultCode) {
-            dispatch(getAuthUserData())
+            dispatch(setAuthUserData(null, null, null, false))
         }
 
     } catch (e) {
         throw new Error()
     }
-
 }
+
+// Types
+export type authActionsType =
+    | ReturnType<typeof setAuthUserData>
+    | ReturnType<typeof setAuthError>
