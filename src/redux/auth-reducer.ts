@@ -70,8 +70,8 @@ export const setAuthError = (error: string | null) => {
 export const getAuthUserData = (): AppThunkType => async dispatch => {
     try {
         const response = await authAPI.me()
-        const {id, login, email} = response.data.data
         if (!response.data.resultCode) {
+            const {id, login, email} = response.data.data
             dispatch(setAuthUserData(id, login, email, true))
         }
 
