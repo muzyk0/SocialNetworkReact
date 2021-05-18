@@ -108,7 +108,7 @@ export const getUserProfile = (userId: string): AppThunkType => async dispatch =
         const response = await profileAPI.getProfile(userId)
         dispatch(setUserProfile(response.data))
     } catch (e) {
-        throw new Error()
+        console.warn(e)
     }
 }
 export const getStatus = (userId: string): AppThunkType => async dispatch => {
@@ -116,7 +116,7 @@ export const getStatus = (userId: string): AppThunkType => async dispatch => {
         const response = await profileAPI.getStatus(userId)
         dispatch(setStatus(response.data))
     } catch (e) {
-        throw new Error()
+        console.warn(e)
     }
 }
 export const updateStatus = (status: string): AppThunkType => async dispatch => {

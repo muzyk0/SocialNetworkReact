@@ -1,43 +1,43 @@
 import React from 'react';
 
- type MessageType = {
+type MessageType = {
     id: number
     message: string
 }
- type DialogsType = {
+type DialogsType = {
     id: number
     name: string
 }
- type PostType = {
+type PostType = {
     id: number
     message: string
     likesCount: number
 }
- type ProfilePostType = {
+type ProfilePostType = {
     newPostText: string
     posts: Array<PostType>
 }
- type DialogsPageType = {
+type DialogsPageType = {
     newMessageBody: string
     dialogs: Array<DialogsType>
     messages: Array<MessageType>
 }
- type FriendsType = {
+type FriendsType = {
     id: number
     name: string
 }
 
- type SidebarType = {
+type SidebarType = {
     friends: Array<FriendsType>
 }
- type RootStateType = {
+type RootStateType = {
     profilePage: ProfilePostType
     dialogsPage: DialogsPageType
     sidebar: SidebarType
 }
 
 
- type StoreType = {
+type StoreType = {
     _state: RootStateType
     _callSubscribe: () => void
     getState: () => RootStateType
@@ -45,10 +45,10 @@ import React from 'react';
     // dispatch: (action: ActionsType2) => void
 }
 
- /*type ActionsType2 = AddPostActionType
-    | UpdateNewPostTextActionType
-    | AddMessageActionType
-    | UpdateNewDialogMessageActionType;*/
+/*type ActionsType2 = AddPostActionType
+   | UpdateNewPostTextActionType
+   | AddMessageActionType
+   | UpdateNewDialogMessageActionType;*/
 
 
 let storeUnused: StoreType = {

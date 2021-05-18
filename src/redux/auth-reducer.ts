@@ -74,7 +74,6 @@ export const getAuthUserData = (): AppThunkType => async dispatch => {
             const {id, login, email} = response.data.data
             dispatch(setAuthUserData(id, login, email, true))
         }
-
     } catch (e) {
         throw new Error()
     }

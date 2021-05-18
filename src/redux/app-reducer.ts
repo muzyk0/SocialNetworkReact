@@ -31,8 +31,8 @@ export const initializedSuccess = () => ({
 )
 
 // Thunk Creators
-export const initializeApp = (): AppThunkType => dispatch => {
-    const promise = dispatch(getAuthUserData())
+export const initializeApp = (): AppThunkType => async dispatch => {
+    const promise = await dispatch(getAuthUserData())
 
     Promise.all([promise])
         .then(() => {

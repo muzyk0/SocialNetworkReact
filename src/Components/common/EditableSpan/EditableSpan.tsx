@@ -27,7 +27,7 @@ class EditableSpan extends React.Component<PropsType> {
 
     onChange = (e: any) => {
         this.setState({
-            status: e.currentTarget.value
+            title: e.currentTarget.value
         })
     }
 

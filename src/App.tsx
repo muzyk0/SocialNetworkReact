@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {HashRouter, Route, withRouter} from 'react-router-dom';
+import {Route, withRouter} from 'react-router-dom';
 import DialogsContainer from './Components/Dialogs/DialogsContainer';
 import {SidebarContainer} from './Components/Sidebar/SidebarContainer';
 import UsersContainer from './Components/Users/UsersContainer';
@@ -13,7 +13,7 @@ import {initializeApp} from './redux/app-reducer';
 import {AppStateType} from './redux/store';
 import {Preloader} from './Components/common/Preloader/Preloader';
 
-class App extends React.Component<any> {
+class App extends React.Component<AppPropsType> {
     componentDidMount() {
         this.props.initializeApp()
     }
@@ -24,19 +24,17 @@ class App extends React.Component<any> {
         }
 
         return (
-            <HashRouter>
-                <div className="app_wrapper">
-                    <HeaderContainer/>
-                    <SidebarContainer/>
-                    <div className={'app_wrapper_content'}>
-                        <Route path="/login" render={() => <LoginPage/>}/>
-                        <Route path="/profile/:userId?" render={() => <ProfileContainer/>}/>
+            <div className="app_wrapper">
+                <HeaderContainer/>
+                <SidebarContainer/>
+                <div className={'app_wrapper_content'}>
+                    <Route path="/login" render={() => <LoginPage/>}/>
+                    <Route path="/profile/:userId?" render={() => <ProfileContainer/>}/>
 
-                        <Route path="/dialogs" render={() => <DialogsContainer/>}/>
-                        <Route path="/users" render={() => <UsersContainer/>}/>
-                    </div>
+                    <Route path="/dialogs" render={() => <DialogsContainer/>}/>
+                    <Route path="/users/:userId?" render={() => <UsersContainer/>}/>
                 </div>
-            </HashRouter>
+            </div>
         );
     }
 }
