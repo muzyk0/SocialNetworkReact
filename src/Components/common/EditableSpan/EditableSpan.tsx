@@ -1,62 +1,45 @@
-import React from 'react';
+import React, {ChangeEvent, useState} from 'react';
 
 type PropsType = {
     title: string
     onChange: (value: string) => void
 }
 
-class EditableSpan extends React.Component<PropsType> {
-    state = {
-        editMode: false,
-        title: this.props.title,
+const EditableSpan: React.FC<PropsType> = React.memo((props) => {
+
+    const [editMode, setEditMode] = useState(false)
+    const [title, setTitle] = useState<string>('')
+
+    const activateEditMode = () => {
+        setEditMode(true)
+        setTitle(props.title)
+    }
+    const DeactivateEditMode = () => {
+        setEditMode(false)
+        props.onChange(title)
     }
 
-    activateEditMode = () => {
-        this.setState({
-            ...this.state,
-            editMode: true,
-        })
-    }
-    DeactivateEditMode = () => {
-        this.setState({
-            ...this.state,
-            editMode: false,
-        })
-        this.props.onChange(this.state.title)
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setTitle(e.currentTarget.value)
     }
 
-    onChange = (e: any) => {
-        this.setState({
-            title: e.currentTarget.value
-        })
-    }
+    return (
+        <div>
+            {!editMode && <div>
+                <span onDoubleClick={activateEditMode}>{props.title || 'Status is not defined'}</span>
+            </div>}
+            {editMode && <div>
+                <input
+                    type={'text'}
+                    value={title}
+                    onBlur={DeactivateEditMode}
+                    onChange={onChange}
+                    autoFocus
+                />
+            </div>}
+        </div>
+    );
 
-    componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<{}>, snapshot?: any) {
-        if (prevProps.title !== this.state.title) {
-            this.setState({
-                title: this.props.title
-            })
-        }
-    }
-
-    render() {
-        return (
-            <div>
-                {!this.state.editMode && <div>
-                    <span onDoubleClick={this.activateEditMode}>{this.props.title || 'Status is not defined'}</span>
-                </div>}
-                {this.state.editMode && <div>
-                    <input
-                        type={'text'}
-                        value={this.state.title}
-                        onBlur={this.DeactivateEditMode}
-                        onChange={this.onChange}
-                        autoFocus
-                    />
-                </div>}
-            </div>
-        );
-    }
-}
+})
 
 export default EditableSpan;
