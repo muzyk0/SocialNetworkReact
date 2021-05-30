@@ -5,7 +5,7 @@ import {MyPostsPropsType} from './MyPostsContainer';
 import AddNewPostForm, {NewPostFormDataType} from './AddNewPostForm';
 
 
-export const MyPosts = (props: MyPostsPropsType) => {
+export const MyPosts = React.memo((props: MyPostsPropsType) => {
 
     const postsElements = props.posts.map(post =>
         <Post
@@ -29,4 +29,4 @@ export const MyPosts = (props: MyPostsPropsType) => {
             </div>
         </div>
     )
-}
+})

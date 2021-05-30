@@ -22,6 +22,12 @@ const EditableSpan: React.FC<PropsType> = React.memo((props) => {
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
     }
+    const onEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            setEditMode(false)
+            props.onChange(title)
+        }
+    }
 
     return (
         <div>
@@ -34,6 +40,7 @@ const EditableSpan: React.FC<PropsType> = React.memo((props) => {
                     value={title}
                     onBlur={DeactivateEditMode}
                     onChange={onChange}
+                    onKeyPress={onEnter}
                     autoFocus
                 />
             </div>}
