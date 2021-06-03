@@ -1,8 +1,8 @@
 import {applyMiddleware, combineReducers, createStore} from 'redux';
-import {profileActionsType, profileReducer} from './profile-reducer';
+import {ProfileActionsType, profileReducer} from './profile-reducer';
 import {dialogsActionsType, dialogsReducer} from './dialogs-reducer';
 import {sidebarActionsType, sidebarReducer} from './sidebar-reducer';
-import {usersReducer} from './users-reducer';
+import {UserReducerType, usersReducer} from './users-reducer';
 import thunk, {ThunkAction} from 'redux-thunk';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import {authActionsType, authReducer} from './auth-reducer';
@@ -24,9 +24,10 @@ export type AppStateType = ReturnType<typeof rootReducer>
 export type AppActionsType =
     | authActionsType
     | dialogsActionsType
-    | profileActionsType
+    | ProfileActionsType
     | sidebarActionsType
     | appActionsType
+    | UserReducerType
 
 export type AppThunkType<ReturnType = void> = ThunkAction<ReturnType,
     AppStateType,

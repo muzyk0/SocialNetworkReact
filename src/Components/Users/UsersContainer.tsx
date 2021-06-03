@@ -17,18 +17,13 @@ import {
 export class UsersContainerAPI extends React.Component<UsersPropsType> {
 
     componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize)
+        const {currentPage, pageSize} = this.props
+        this.props.getUsers(currentPage, pageSize)
     }
 
     onPageChanged = (page: number) => {
-        this.props.getUsers(page, this.props.pageSize)
-    }
-
-    onFollow = (id: number) => {
-        this.props.follow(id)
-    }
-    onUnFollow = (id: number) => {
-        this.props.unfollow(id)
+        const {getUsers, pageSize} = this.props
+        getUsers(page, pageSize)
     }
 
     render() {
@@ -39,8 +34,8 @@ export class UsersContainerAPI extends React.Component<UsersPropsType> {
                    pageSize={this.props.pageSize}
                    totalCount={this.props.totalCount}
                    onPageChanged={this.onPageChanged}
-                   follow={this.onFollow}
-                   unfollow={this.onUnFollow}
+                   follow={this.props.follow}
+                   unfollow={this.props.unfollow}
                    followingInProgress={this.props.followingInProgress}
             />
         </>

@@ -1,8 +1,7 @@
 import React from 'react';
-import userPhoto from '../../assets/images/userPhoto.png'
-import styles from './UsersContainer.module.css'
-import {NavLink} from 'react-router-dom';
 import {ResponseItemType} from '../../API/api';
+import Paginator from '../common/Paginator/Paginator';
+import User from './User';
 
 type PropsType = {
     users: ResponseItemType[]
@@ -16,30 +15,20 @@ type PropsType = {
 }
 
 const Users: React.FC<PropsType> = (props) => {
-    const UsersEl = props.users.map((u) => {
-        return (
-            <div key={u.id}>
-                <div>
-                    <NavLink to={`profile/${u.id}`}><img src={u.photos.small !== null ? u.photos.small : userPhoto}
-                                                         className={styles.userPhoto} alt={'Avatar'}/></NavLink>
-                </div>
-                <div>
-                    {u.followed
-                        ? <button disabled={props.followingInProgress.some(id => id === u.id)}
-                                  onClick={() => {props.unfollow(u.id)}}>Unfollow</button>
+    const {
+        currentPage,
+        onPageChanged,
+        totalCount,
+        pageSize,
+        users,
+        follow,
+        unfollow,
+        followingInProgress,
+    } = props
 
-                        : <button disabled={props.followingInProgress.some(id => id === u.id)}
-                                  onClick={() => {props.follow(u.id)}}>Follow</button>}
-                </div>
-                <div>
-                    <div>{u.name}</div>
-                    <div>{u.status}</div>
-                </div>
-                <div>
-                    <div>{'u.location.country'}</div>
-                    <div>{'u.location.city'}</div>
-                </div>
-            </div>
+    const UsersEl = users.map((u) => {
+        return (
+            <User users={u} followingInProgress={followingInProgress} follow={follow} unfollow={unfollow} onPageChanged={onPageChanged}/>
         )
     })
 
@@ -53,15 +42,12 @@ const Users: React.FC<PropsType> = (props) => {
     return <>
 
         <div>
-            {pages.map(page => {
-                return <span
-                    key={page}
-                    className={props.currentPage === page ? styles.selectedPage : ''}
-                    onClick={() => {
-                        props.onPageChanged(page)
-                    }}
-                >{page} </span>
-            })}
+            <Paginator
+                onPageChanged={onPageChanged}
+                pageSize={pageSize}
+                totalCount={totalCount}
+                currentPage={currentPage}
+            />
             {UsersEl}
         </div>
     </>

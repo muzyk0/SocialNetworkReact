@@ -11,7 +11,11 @@ type PropsType = {
     updateStatus: (status: string) => void
 }
 const ProfileData = (props: PropsType) => {
-    const {profile} = props
+    const {
+        profile,
+        status,
+        updateStatus,
+    } = props
 
     if (!profile) {
         return <Preloader/>
@@ -23,7 +27,7 @@ const ProfileData = (props: PropsType) => {
                 <h3>{profile.fullName}</h3>
             </div>
 
-            <EditableSpan title={props.status} onChange={props.updateStatus}/>
+            <EditableSpan title={status} onChange={updateStatus}/>
 
             {profile.aboutMe && <div>
                 <h3>About me:</h3>

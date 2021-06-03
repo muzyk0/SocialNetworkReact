@@ -5,6 +5,7 @@ export enum PROFILE_ACTION_TYPE {
     ADD_POST = 'APP/PROFILE/ADD-POST',
     SET_USER_PROFILE = 'APP/PROFILE/SET_PROFILE_INFO-NEW-POST-TEXT',
     SET_STATUS = 'APP/PROFILE/SET_STATUS',
+    DELETE_POST = 'APP/PROFILE/DELETE_POST',
 }
 
 export type PostType = {
@@ -13,24 +14,24 @@ export type PostType = {
     likesCount: number
 }
 export type ProfileType = {
-    'aboutMe': string | null
-    'contacts': {
-        'facebook': string | null
-        'website': string | null
-        'vk': string | null
-        'twitter': string | null
-        'instagram': string | null
-        'youtube': string | null
-        'github': string | null
-        'mainLink': string | null
+    aboutMe: string | null
+    contacts: {
+        facebook: string | null
+        website: string | null
+        vk: string | null
+        twitter: string | null
+        instagram: string | null
+        youtube: string | null
+        github: string | null
+        mainLink: string | null
     },
-    'lookingForAJob': string | null
-    'lookingForAJobDescription': string | null
-    'fullName': string | null
-    'userId': number
-    'photos': {
-        'small': string | null
-        'large': string | null
+    lookingForAJob: string | null
+    lookingForAJobDescription: string | null
+    fullName: string | null
+    userId: number
+    photos: {
+        small: string | null
+        large: string | null
     }
 }
 let initialState = {
@@ -53,7 +54,7 @@ let initialState = {
 export type ProfileReducerInitialStateType = typeof initialState
 
 
-export const profileReducer = (state: ProfileReducerInitialStateType = initialState, action: profileActionsType): ProfileReducerInitialStateType => {
+export const profileReducer = (state: ProfileReducerInitialStateType = initialState, action: ProfileActionsType): ProfileReducerInitialStateType => {
 
     switch (action.type) {
         case PROFILE_ACTION_TYPE.ADD_POST:
@@ -79,6 +80,8 @@ export const profileReducer = (state: ProfileReducerInitialStateType = initialSt
                 ...state,
                 status: action.status
             }
+        case PROFILE_ACTION_TYPE.DELETE_POST:
+            return {...state, posts: state.posts.filter(post => post.id !== action.postId)}
         default:
             return state
     }
@@ -86,10 +89,11 @@ export const profileReducer = (state: ProfileReducerInitialStateType = initialSt
 
 }
 
-export type profileActionsType = ReturnType<typeof addPostActionCreator>
-
+export type ProfileActionsType =
+    | ReturnType<typeof addPostActionCreator>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setStatus>
+    | ReturnType<typeof deletePost>
 
 // Action Creators
 export const addPostActionCreator = (newPostText: string) => {
@@ -100,6 +104,9 @@ export const setUserProfile = (profile: ProfileType) => {
 }
 export const setStatus = (status: string) => {
     return {type: PROFILE_ACTION_TYPE.SET_STATUS, status} as const
+}
+export const deletePost = (postId: number) => {
+    return {type: PROFILE_ACTION_TYPE.DELETE_POST, postId} as const
 }
 
 // Thunk Creator

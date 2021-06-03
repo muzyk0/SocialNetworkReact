@@ -12,13 +12,17 @@ export type ResponseItemType = {
     'status': null | string
     'followed': boolean
 }
-export type ServerData = {
-    'items': ResponseItemType[]
+export type ServerData<T = []> = {
+    'items': T
     'totalCount': number
     'error': null | string
+
 }
-type ResponseType = {
-    data: ServerData
+export type ResponseType<T = {}> = {
+    resultCode: number
+    messages: Array<string>
+    fieldsErrors: Array<string>
+    data: T
 }
 
 const instance = axios.create({
@@ -31,8 +35,8 @@ const instance = axios.create({
 
 export const usersAPI = {
     getUsers: (currentPage: number = 1, pageSize: number = 10) => {
-        return instance.get<ServerData>(`users?page=${currentPage}&count=${pageSize}`)
-            .then((response: ResponseType) => response.data)
+        return instance.get<ServerData<ResponseItemType[]>>(`users?page=${currentPage}&count=${pageSize}`)
+            .then((response ) => response.data)
     },
     follow: (id: number = 2) => {
         return instance.post(`follow/${id}`)
