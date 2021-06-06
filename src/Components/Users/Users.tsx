@@ -32,20 +32,13 @@ const Users: React.FC<PropsType> = (props) => {
         )
     })
 
-    // let pagesCount = Math.ceil(props.totalCount / props.pageSize)
-    const pages = []
-
-    for (let i = 1; i <= 30; i++) {
-        pages.push(i)
-    }
-
     return <>
 
         <div>
             <Paginator
                 onPageChanged={onPageChanged}
                 pageSize={pageSize}
-                totalCount={totalCount}
+                totalItemsCount={totalCount}
                 currentPage={currentPage}
             />
             {UsersEl}
