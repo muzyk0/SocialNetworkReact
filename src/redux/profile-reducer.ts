@@ -133,7 +133,7 @@ export const updateStatus = (status: string): AppThunkType => async dispatch => 
             dispatch(setStatus(status))
         }
     } catch (e) {
-        throw new Error()
+        throw new Error(e)
     }
 }
 
