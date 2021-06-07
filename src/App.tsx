@@ -1,17 +1,19 @@
-import React from 'react';
-import './App.css';
-import {BrowserRouter, Route, withRouter} from 'react-router-dom';
-import DialogsContainer from './Components/Dialogs/DialogsContainer';
-import {SidebarContainer} from './Components/Sidebar/SidebarContainer';
-import UsersContainer from './Components/Users/UsersContainer';
-import ProfileContainer from './Components/Profile/ProfileContainer';
-import HeaderContainer from './Components/Header/HeaderContainer';
-import LoginPage from './Components/Login/LoginPage';
-import {compose} from 'redux';
-import {connect, ConnectedProps, Provider} from 'react-redux';
-import {initializeApp} from './redux/app-reducer';
-import {AppStateType, store} from './redux/store';
-import {Preloader} from './Components/common/Preloader/Preloader';
+import React from "react";
+import "./App.css";
+import {HashRouter, Route, withRouter} from "react-router-dom";
+import {SidebarContainer} from "./Components/Sidebar/SidebarContainer";
+import UsersContainer from "./Components/Users/UsersContainer";
+import HeaderContainer from "./Components/Header/HeaderContainer";
+import {compose} from "redux";
+import {connect, ConnectedProps, Provider} from "react-redux";
+import {initializeApp} from "./redux/app-reducer";
+import {AppStateType, store} from "./redux/store";
+import {Preloader} from "./Components/common/Preloader/Preloader";
+import {withSuspense} from "./hoc/withSuspense";
+
+const LoginPage = React.lazy(() => import('./Components/Login/LoginPage'))
+const ProfileContainer = React.lazy(() => import('./Components/Profile/ProfileContainer'))
+const DialogsContainer = React.lazy(() => import('./Components/Dialogs/DialogsContainer'))
 
 class App extends React.Component<AppPropsType> {
     componentDidMount() {
@@ -28,10 +30,10 @@ class App extends React.Component<AppPropsType> {
                 <HeaderContainer/>
                 <SidebarContainer/>
                 <div className={'app_wrapper_content'}>
-                    <Route path="/login" render={() => <LoginPage/>}/>
-                    <Route path="/profile/:userId?" render={() => <ProfileContainer/>}/>
+                    <Route path="/login" render={withSuspense(LoginPage)}/>
+                    <Route path="/profile/:userId?" render={withSuspense(ProfileContainer)}/>
 
-                    <Route path="/dialogs" render={() => <DialogsContainer/>}/>
+                    <Route path="/dialogs" render={withSuspense(DialogsContainer)}/>
                     <Route path="/users/:userId?" render={() => <UsersContainer/>}/>
                 </div>
             </div>
@@ -51,12 +53,12 @@ export const AppContainer = compose<React.ComponentType>(
 )(App)
 
 const SamuraiJSApp: React.FC = () => {
-    return <BrowserRouter>
+    return <HashRouter>
         <Provider store={store}>
             <AppContainer/>
         </Provider>
 
-    </BrowserRouter>
+    </HashRouter>
 }
 
 export default SamuraiJSApp
