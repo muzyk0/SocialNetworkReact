@@ -1,10 +1,10 @@
-import React from 'react';
-import {connect, ConnectedProps} from 'react-redux';
-import Profile from './Profile';
-import {AppStateType} from '../../redux/store';
-import {getStatus, getUserProfile, ProfileType, updateStatus} from '../../redux/profile-reducer';
-import {RouteComponentProps, withRouter} from 'react-router-dom';
-import {compose} from 'redux';
+import React from "react";
+import {connect, ConnectedProps} from "react-redux";
+import Profile from "./Profile";
+import {AppStateType} from "../../redux/store";
+import {getStatus, getUserProfile, ProfileType, savePhoto, updateStatus} from "../../redux/profile-reducer";
+import {RouteComponentProps, withRouter} from "react-router-dom";
+import {compose} from "redux";
 
 type PathParamsType = {
     userId: string
@@ -13,25 +13,37 @@ type PathParamsType = {
 // Component own properties
 type PropsType = RouteComponentProps<PathParamsType> & ProfilePropsType
 
-class ProfileContainer extends React.Component<PropsType> {
+class ProfileContainer extends React.PureComponent<PropsType> {
 
-    componentDidMount() {
+    refreshProfile() {
         let userId = this.props.match.params.userId
         if (!userId) {
-            userId = this.props.authorizedUserId ? this.props.authorizedUserId.toString() : ''
+            userId = this.props.authorizedUserId ? this.props.authorizedUserId.toString() : ""
             if (!userId) {
-                this.props.history.push('/login')
+                this.props.history.push("/login")
             }
         }
         this.props.getUserProfile(userId)
         this.props.getStatus(userId)
     }
 
+    componentDidMount() {
+        this.refreshProfile()
+    }
+
+    componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<{}>, snapshot?: any) {
+        if (this.props.match.params.userId !== prevProps.match.params.userId) {
+            this.refreshProfile()
+        }
+    }
+
     render() {
         return <Profile {...this.props}
+                        isOwner={!this.props.match.params.userId}
                         profile={this.props.profile}
                         status={this.props.status}
                         updateStatus={this.props.updateStatus}
+                        savePhoto={this.props.savePhoto}
         />
     }
 }
@@ -59,6 +71,7 @@ const connector = connect(mapStateToProps, {
     getUserProfile,
     getStatus,
     updateStatus,
+    savePhoto,
 })
 
 export default compose<React.ComponentType>(

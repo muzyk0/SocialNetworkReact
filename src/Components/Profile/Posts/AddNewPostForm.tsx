@@ -18,7 +18,7 @@ const AddNewPostForm: React.FC<InjectedFormProps<NewPostFormDataType, Props>> = 
                 <Field
                     component={Textarea}
                     name={'pastText'}
-                    placeHolder={'Enter new post'}
+                    placeholder={'Enter new post'}
                     validate={[required, maxLength10]}
                 />
             </div>

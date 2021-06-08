@@ -28,7 +28,7 @@ const Users: React.FC<PropsType> = (props) => {
 
     const UsersEl = users.map((u) => {
         return (
-            <User users={u} followingInProgress={followingInProgress} follow={follow} unfollow={unfollow} onPageChanged={onPageChanged}/>
+            <User key={u.id} users={u} followingInProgress={followingInProgress} follow={follow} unfollow={unfollow} onPageChanged={onPageChanged}/>
         )
     })
 

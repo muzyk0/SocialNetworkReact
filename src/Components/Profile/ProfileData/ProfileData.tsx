@@ -8,14 +8,23 @@ import EditableSpan from '../../common/EditableSpan/EditableSpan';
 type PropsType = {
     profile: ProfileType | null
     status: string
+    isOwner: boolean
     updateStatus: (status: string) => void
+    savePhoto: (photo: File) => void
 }
 const ProfileData = (props: PropsType) => {
     const {
         profile,
         status,
         updateStatus,
+        isOwner
     } = props
+
+    const onMainPhotoSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.currentTarget.files) {
+            props.savePhoto(e.currentTarget.files[0])
+        }
+    }
 
     if (!profile) {
         return <Preloader/>
@@ -23,6 +32,7 @@ const ProfileData = (props: PropsType) => {
     return (
         <div className={styles.profileData}>
             <img src={profile.photos.small ? profile.photos.small : defaultUserPhoto} alt="profile avatar"/>
+            {isOwner && <input type="file" onChange={onMainPhotoSelected}/>}
             <div>
                 <h3>{profile.fullName}</h3>
             </div>
@@ -72,7 +82,7 @@ const ProfileContacts = (props: ProfileContactsType) => {
 
             <div className={styles.contacts}>{netWork.map(key => {
                 return (
-                    <div>
+                    <div key={key}>
                         {key}
                     </div>
                 )
