@@ -19,6 +19,7 @@ const Profile: React.FC<ProfilePropsType & Props> = props => {
                 status={props.status}
                 updateStatus={props.updateStatus}
                 savePhoto={props.savePhoto}
+                updateProfileInfo={props.updateProfileInfo}
             />
             <MyPostsContainer/>
         </div>

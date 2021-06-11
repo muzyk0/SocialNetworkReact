@@ -2,7 +2,14 @@ import React from "react";
 import {connect, ConnectedProps} from "react-redux";
 import Profile from "./Profile";
 import {AppStateType} from "../../redux/store";
-import {getStatus, getUserProfile, ProfileType, savePhoto, updateStatus} from "../../redux/profile-reducer";
+import {
+    getStatus,
+    getUserProfile,
+    ProfileType,
+    savePhoto,
+    updateProfileInfo,
+    updateStatus
+} from '../../redux/profile-reducer';
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {compose} from "redux";
 
@@ -23,7 +30,7 @@ class ProfileContainer extends React.PureComponent<PropsType> {
                 this.props.history.push("/login")
             }
         }
-        this.props.getUserProfile(userId)
+        this.props.getUserProfile(Number(userId))
         this.props.getStatus(userId)
     }
 
@@ -44,6 +51,7 @@ class ProfileContainer extends React.PureComponent<PropsType> {
                         status={this.props.status}
                         updateStatus={this.props.updateStatus}
                         savePhoto={this.props.savePhoto}
+                        updateProfileInfo={this.props.updateProfileInfo}
         />
     }
 }
@@ -72,6 +80,7 @@ const connector = connect(mapStateToProps, {
     getStatus,
     updateStatus,
     savePhoto,
+    updateProfileInfo
 })
 
 export default compose<React.ComponentType>(

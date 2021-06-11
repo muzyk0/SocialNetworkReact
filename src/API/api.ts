@@ -50,7 +50,7 @@ export const usersAPI = {
 
 
 export const profileAPI = {
-    getProfile: (userId: string) => {
+    getProfile: (userId: number) => {
         return instance.get<ProfileType>(`profile/${userId}`)
     },
     getStatus: (userId: string) => {
@@ -67,6 +67,9 @@ export const profileAPI = {
         return instance.put<ResponseType<ResponseItemType>>(`/profile/photo`, formData, {
             headers: {"Content-Type": "multipart/form-data"}
         })
+    },
+    saveProfile: (values: ProfileType) => {
+        return instance.put<ResponseType<ProfileType>>(`/profile`, values)
     }
 }
 
