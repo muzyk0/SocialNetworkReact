@@ -7,7 +7,8 @@
   border: solid red 1px;
 }
 .formSummaryError {
-  display: inline-block;
+  display: block;
+  width: auto;
   border: red 1px solid;
   padding: 5px;
   margin: 5px 0;

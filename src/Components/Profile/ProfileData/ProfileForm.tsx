@@ -1,8 +1,7 @@
-import {ContactsType, ProfileType} from '../../../redux/profile-reducer';
+import {ProfileType} from '../../../redux/profile-reducer';
 import React from 'react';
 import styles from './ProfileData.module.css';
-import {Contact} from './ProfileData';
-import {Form, Formik, Field, ErrorMessage} from 'formik';
+import {ErrorMessage, Field, Form, Formik} from 'formik';
 import * as yup from 'yup';
 
 const validationSchema = yup.object().shape({
@@ -32,6 +31,8 @@ export const ProfileForm: React.FC<ProfileFormType> = props => {
                 <div>
                     <div>
                         <b>Full name</b>:
+                    </div>
+                    <div>
                         <Field name={'fullName'}/>
                     </div>
                     <div>
@@ -51,7 +52,7 @@ export const ProfileForm: React.FC<ProfileFormType> = props => {
                         <div>
                             <Field type={'textarea'} name={'lookingForAJobDescription'}/>
                         </div>
-                        <ErrorMessage name="lookingForAJobDescription" />
+                        <ErrorMessage name="lookingForAJobDescription"/>
                     </p>
                 </div>
 
@@ -60,18 +61,17 @@ export const ProfileForm: React.FC<ProfileFormType> = props => {
                     <h3>About me:</h3>
                     <div>
                         <Field name={'aboutMe'}/>
-                        <ErrorMessage name="lookingForAJobDescription" />
+                        <ErrorMessage name="lookingForAJobDescription"/>
                     </div>
                 </div>
                 <div>
                     <h3>My contacts:</h3>
                     <div className={styles.contacts}>
                         {initialValues && Object.keys(initialValues.contacts)
-                            .map(key => <Contact
-                                key={key}
-                                contactTitle={key}
-                                contactValue={initialValues.contacts[key as keyof ContactsType]}
-                            />)}
+                            .map(key => <div key={key} className={styles.contacts}>
+                                <b>{key}</b>:
+                                <Field name={`contacts.${key}`} placeholder={key}/>
+                            </div>)}
                     </div>
                 </div>
             </Form>

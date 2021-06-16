@@ -8,8 +8,8 @@ import {AppStateType} from '../../redux/store';
 const LoginPage: React.FC<Props> = props => {
 
     const onSubmit = (formData: FormDataType) => {
-        const {email, password, rememberMe} = formData
-        props.login(email, password, rememberMe)
+        const {email, password, rememberMe, captcha} = formData
+        props.login(email, password, rememberMe, captcha)
     }
 
     if(props.isAuth.isAuth) {
@@ -19,12 +19,13 @@ const LoginPage: React.FC<Props> = props => {
         <div>
             <h1>Login</h1>
             <div>{props.isAuth.error}</div>
-            <LoginReduxForm onSubmit={onSubmit}/>
+            <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl}/>
         </div>
     )
 }
 const mapStateToProps = (state: AppStateType) => ({
-    isAuth: state.auth
+    captchaUrl: state.auth.captchaUrl,
+    isAuth: state.auth,
 })
 const connector = connect(mapStateToProps, {login})
 

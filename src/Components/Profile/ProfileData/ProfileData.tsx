@@ -57,7 +57,6 @@ const ProfileData = (props: PropsType) => {
     const initialValues = buildInitialFormValues(profile)
 
     const onSubmitForm = (values: ProfileType) => {
-        alert(JSON.stringify(values))
         updateProfileInfo(values)
         setEditMode(false)
     }
@@ -147,6 +146,9 @@ type ProfileContactsType = {
 export const Contact: React.FC<ProfileContactsType> = props => {
     const {contactTitle, contactValue} = props
     return (
-        <div><b>{contactTitle}</b>: {contactValue ? contactValue : 'No contact'}</div>
+        <div className={styles.contacts}>
+            <b>{contactTitle}</b>:
+            {contactValue ? contactValue : 'No contact'}
+        </div>
     )
 }
