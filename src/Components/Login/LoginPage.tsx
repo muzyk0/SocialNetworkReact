@@ -1,35 +1,33 @@
-import React from 'react';
-import LoginReduxForm, {FormDataType} from './LoginForm';
-import {login} from '../../redux/auth-reducer';
-import {connect, ConnectedProps} from 'react-redux';
-import {Redirect} from 'react-router-dom';
-import {AppStateType} from '../../redux/store';
+import React from "react";
+import LoginReduxForm, { FormDataType } from "./LoginForm";
+import { login } from "../../redux/auth-reducer";
+import { connect, ConnectedProps } from "react-redux";
+import { Redirect } from "react-router-dom";
+import { AppStateType } from "../../redux/store";
 
-const LoginPage: React.FC<Props> = props => {
-
+const LoginPage: React.FC<Props> = (props) => {
     const onSubmit = (formData: FormDataType) => {
-        const {email, password, rememberMe, captcha} = formData
-        props.login(email, password, rememberMe, captcha)
-    }
+        const { email, password, rememberMe, captcha } = formData;
+        props.login(email, password, rememberMe, captcha);
+    };
 
-    if(props.isAuth.isAuth) {
-        return <Redirect to={`/profile/${props.isAuth.id}`} />
+    if (props.isAuth.isAuth) {
+        return <Redirect to={`/profile/${props.isAuth.userId}`} />;
     }
     return (
         <div>
             <h1>Login</h1>
-            <div>{props.isAuth.error}</div>
-            <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl}/>
+            <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl} />
         </div>
-    )
-}
+    );
+};
 const mapStateToProps = (state: AppStateType) => ({
     captchaUrl: state.auth.captchaUrl,
     isAuth: state.auth,
-})
-const connector = connect(mapStateToProps, {login})
+});
+const connector = connect(mapStateToProps, { login });
 
-export default connector(LoginPage)
+export default connector(LoginPage);
 
 // Types
-type Props = ConnectedProps<typeof connector>
+type Props = ConnectedProps<typeof connector>;

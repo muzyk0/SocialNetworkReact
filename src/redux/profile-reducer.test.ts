@@ -1,14 +1,7 @@
-import {
-    addPostActionCreator,
-    deletePost,
-    profileReducer,
-    ProfileReducerInitialStateType,
-    ProfileType,
-    setStatus,
-    setUserProfile,
-} from "./profile-reducer";
+import { ProfileType } from "../types/types";
+import profileReducer, { actions, InitialStateType } from "./profile-reducer";
 
-let startState: ProfileReducerInitialStateType;
+let startState: InitialStateType;
 
 beforeEach(() => {
     startState = {
@@ -26,12 +19,12 @@ beforeEach(() => {
         ],
         profile: null,
         status: "",
-    } as ProfileReducerInitialStateType;
+    } as InitialStateType;
 });
 
 test("New post should be added", () => {
     const postMessage = `it it's good`;
-    const action = addPostActionCreator(postMessage);
+    const action = actions.addPostActionCreator(postMessage);
     let newState = profileReducer(startState, action);
 
     expect(newState.posts.length).toBe(3);
@@ -62,7 +55,7 @@ test("User profile is updated", () => {
         },
     };
 
-    const action = setUserProfile(UserProfile);
+    const action = actions.setUserProfile(UserProfile);
     let newState = profileReducer(startState, action);
 
     expect(newState.profile).toEqual(UserProfile);
@@ -71,7 +64,7 @@ test("User profile is updated", () => {
 test("New status should be set", () => {
     const statue: string = "I am a Man";
 
-    const action = setStatus(statue);
+    const action = actions.setStatus(statue);
     let newState = profileReducer(startState, action);
 
     expect(newState.status).toEqual(statue);
@@ -80,7 +73,7 @@ test("New status should be set", () => {
 test("After deleting length of posts should be decrement", () => {
     const postId: number = 1;
 
-    const action = deletePost(postId);
+    const action = actions.deletePost(postId);
     let newState = profileReducer(startState, action);
 
     expect(newState.posts.length).toBe(1);
@@ -89,7 +82,7 @@ test("After deleting length of posts should be decrement", () => {
 test(`After deleting length shouldn't be decrement if id incorrect`, () => {
     const postId: number = 1000;
 
-    const action = deletePost(postId);
+    const action = actions.deletePost(postId);
     let newState = profileReducer(startState, action);
 
     expect(newState.posts.length).toBe(2);

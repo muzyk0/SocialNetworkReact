@@ -1,20 +1,19 @@
-import { AppThunkType } from "./store";
 import { getAuthUserData } from "./auth-reducer";
+import { InferActionsTypes } from "./store";
 
-export enum USERS_ACTIONS {
-    INITIALIZED_SUCCESS = "INITIALIZED_SUCCESS",
-}
-
-const initialState = {
-    initialized: false as boolean,
+let initialState = {
+    initialized: false,
 };
 
-export const appReducer = (
-    state: authInitialStatePropsType = initialState,
-    action: appActionsType
-): authInitialStatePropsType => {
+export type InitialStateType = typeof initialState;
+type ActionsType = InferActionsTypes<typeof actions>;
+
+const appReducer = (
+    state = initialState,
+    action: ActionsType
+): InitialStateType => {
     switch (action.type) {
-        case "INITIALIZED_SUCCESS":
+        case "SN/APP/INITIALIZED_SUCCESS":
             return {
                 ...state,
                 initialized: true,
@@ -24,23 +23,16 @@ export const appReducer = (
     }
 };
 
-// Action Creators
-export const initializedSuccess = () =>
-    ({
-        type: USERS_ACTIONS.INITIALIZED_SUCCESS,
-    } as const);
+export const actions = {
+    initializedSuccess: () => ({ type: "SN/APP/INITIALIZED_SUCCESS" } as const),
+};
 
-// Thunk Creators
-export const initializeApp = (): AppThunkType => async (dispatch) => {
-    const promise = await dispatch(getAuthUserData());
+export const initializeApp = () => (dispatch: any) => {
+    let promise = dispatch(getAuthUserData());
 
     Promise.all([promise]).then(() => {
-        dispatch(initializedSuccess());
+        dispatch(actions.initializedSuccess());
     });
 };
 
-// Types
-export type authInitialStatePropsType = typeof initialState;
-export type initializedSuccessType = ReturnType<typeof initializedSuccess>;
-
-export type appActionsType = initializedSuccessType;
+export default appReducer;
