@@ -1,4 +1,5 @@
 import { Dispatch } from "redux";
+import { APIResponseType, ResultCodesEnum } from "../api/api";
 import { usersAPI } from "../api/users-api";
 import { UserType } from "../types/types";
 import { updateObjectInArray } from "../utils/object-helpers";
@@ -88,6 +89,7 @@ export const actions = {
 
 export const requestUsers = (page: number, pageSize: number): ThunkType => {
     return async (dispatch, getState) => {
+        dispatch(actions.toggleIsFetching(true));
         dispatch(actions.setCurrentPage(page));
 
         let data = await usersAPI.getUsers(page, pageSize);
@@ -100,13 +102,13 @@ export const requestUsers = (page: number, pageSize: number): ThunkType => {
 const _followUnfollowFlow = async (
     dispatch: Dispatch<ActionsTypes>,
     userId: number,
-    apiMethod: any,
+    apiMethod: (userId: number) => Promise<APIResponseType>,
     actionCreator: (userId: number) => ActionsTypes
 ) => {
     dispatch(actions.toggleFollowingProgress(true, userId));
     let response = await apiMethod(userId);
 
-    if (response.data.resultCode === 0) {
+    if (response.resultCode === ResultCodesEnum.Success) {
         dispatch(actionCreator(userId));
     }
     dispatch(actions.toggleFollowingProgress(false, userId));
@@ -114,7 +116,7 @@ const _followUnfollowFlow = async (
 
 export const follow = (userId: number): ThunkType => {
     return async (dispatch) => {
-        _followUnfollowFlow(
+        await _followUnfollowFlow(
             dispatch,
             userId,
             usersAPI.follow.bind(usersAPI),
@@ -125,7 +127,7 @@ export const follow = (userId: number): ThunkType => {
 
 export const unfollow = (userId: number): ThunkType => {
     return async (dispatch) => {
-        _followUnfollowFlow(
+        await _followUnfollowFlow(
             dispatch,
             userId,
             usersAPI.unfollow.bind(usersAPI),
@@ -136,6 +138,6 @@ export const unfollow = (userId: number): ThunkType => {
 
 export default usersReducer;
 
-type InitialState = typeof initialState;
+export type InitialState = typeof initialState;
 type ActionsTypes = InferActionsTypes<typeof actions>;
 type ThunkType = BaseThunkType<ActionsTypes>;
