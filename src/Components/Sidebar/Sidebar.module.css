@@ -1,38 +1,38 @@
 .sidebar {
-    grid-area: nav;
-    background-color: aquamarine;
-    padding: 0 20px;
-    height: 100%;
+  grid-area: nav;
+  background-color: aquamarine;
+  padding: 0 20px;
+  height: 100%;
 }
 .sidebar ul {
-    list-style: none;
-    padding: 0;
+  list-style: none;
+  padding: 0;
 }
 .sidebar a {
-    color: #fff;
-    text-decoration: none;
+  color: #fff;
+  text-decoration: none;
 }
 .sidebar a.active {
-    color: gold;
+  color: gold;
 }
 .friendBlock {
-    display: flex;
-    flex-wrap: wrap;
-    width: 200px;
+  display: flex;
+  flex-wrap: wrap;
+  width: 200px;
 }
 .friend {
-    padding: 3px;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
-    align-items: center;
+  padding: 3px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
 }
 .friend .name {
-    justify-content: center;
+  justify-content: center;
 }
 .imgProfilePhoto {
-    width: 60px;
-    height: 60px;
-    background-color: yellow;
-    border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  background-color: yellow;
+  border-radius: 50%;
 }

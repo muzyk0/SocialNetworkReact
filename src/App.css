@@ -1,21 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
 
 body {
-    font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 .app_wrapper {
-    display: grid;
-    grid-template-areas:
+  display: grid;
+  grid-template-areas:
     "header header header"
     "nav content content";
-    grid-template-rows: 60px 1fr;
-    grid-template-columns: 2fr 10fr;
-    /*grid-gap: 10px;*/
+  grid-template-rows: 60px 1fr;
+  grid-template-columns: 2fr 10fr;
+  /*grid-gap: 10px;*/
 
-    width: 1200px;
-    margin: 0 auto;
+  width: 1200px;
+  margin: 0 auto;
 }
 
 .app_wrapper_content {
-    grid-area: content;
+  grid-area: content;
 }

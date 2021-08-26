@@ -1,5 +1,7 @@
 .profile_logo {
-    background: darksalmon url("https://www.touristisrael.com/wp-content/uploads/Israel_Gaash_Beach_8112654694.jpg") no-repeat center;
-    height: 200px;
-    width: 100%;
+  background: darksalmon
+    url("https://www.touristisrael.com/wp-content/uploads/Israel_Gaash_Beach_8112654694.jpg")
+    no-repeat center;
+  height: 200px;
+  width: 100%;
 }

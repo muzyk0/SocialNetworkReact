@@ -5,25 +5,25 @@ import { MyPostsContainer } from "./Posts/MyPostsContainer";
 import { ProfilePropsType } from "./ProfileContainer";
 
 interface Props {
-    isOwner: boolean;
-    savePhoto: (photo: File) => void;
+  isOwner: boolean;
+  savePhoto: (photo: File) => void;
 }
 
 const Profile: React.FC<ProfilePropsType & Props> = (props) => {
-    return (
-        <div className={s.profile}>
-            {/*<ProfileLogo />*/}
-            <ProfileData
-                isOwner={props.isOwner}
-                profile={props.profile}
-                status={props.status}
-                updateStatus={props.updateStatus}
-                savePhoto={props.savePhoto}
-                saveProfile={props.saveProfile}
-            />
-            <MyPostsContainer />
-        </div>
-    );
+  return (
+    <div className={s.profile}>
+      {/*<ProfileLogo />*/}
+      <ProfileData
+        isOwner={props.isOwner}
+        profile={props.profile}
+        status={props.status}
+        updateStatus={props.updateStatus}
+        savePhoto={props.savePhoto}
+        saveProfile={props.saveProfile}
+      />
+      <MyPostsContainer />
+    </div>
+  );
 };
 
 export default Profile;
