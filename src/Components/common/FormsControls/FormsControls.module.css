@@ -1,16 +1,16 @@
 .form-control {
-  color: red;
+    color: red;
 }
 .error input,
 .error textarea {
-  outline: none;
-  border: solid red 1px;
+    outline: none;
+    border: solid red 1px;
 }
 .formSummaryError {
-  display: block;
-  width: auto;
-  border: red 1px solid;
-  padding: 5px;
-  margin: 5px 0;
-  color: #ef664c;
+    display: block;
+    width: auto;
+    border: red 1px solid;
+    padding: 5px;
+    margin: 5px 0;
+    color: #ef664c;
 }

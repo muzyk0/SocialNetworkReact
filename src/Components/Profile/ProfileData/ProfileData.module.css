@@ -1,18 +1,18 @@
 .profileData {
-  padding: 10px;
+    padding: 10px;
 }
 .profileData img {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
 }
 
 .wrapperContacts {
-  display: flex;
+    display: flex;
 }
 .contacts {
-  padding: 5px;
+    padding: 5px;
 }
 .contacts:nth-child(1) {
-  font-weight: bold;
+    font-weight: bold;
 }

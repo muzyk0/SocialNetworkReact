@@ -4,22 +4,22 @@ import { connect } from "react-redux";
 import { SidebarType } from "../../redux/sidebar-reducer";
 
 type MapStateToPropsType = {
-  sidebar: SidebarType;
+    sidebar: SidebarType;
 };
 type MapDispatchToPropsType = {};
 
 export type SidebarPropsType = MapStateToPropsType & MapDispatchToPropsType;
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
-  return {
-    sidebar: state.sidebar,
-  };
+    return {
+        sidebar: state.sidebar,
+    };
 };
 const mapDispatchToProps = () => {
-  return {};
+    return {};
 };
 
 export const SidebarContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(Sidebar);
